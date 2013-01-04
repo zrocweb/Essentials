@@ -16,5 +16,27 @@
       <artifactId>Essentials</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.kohsuke</groupId>
+      <artifactId>geoip</artifactId>
+      <version>1.2.5</version>
+    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
