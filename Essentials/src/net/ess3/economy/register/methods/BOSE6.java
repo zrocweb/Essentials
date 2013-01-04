@@ -8,8 +8,10 @@ import net.ess3.economy.register.Method;
 /**
  * BOSEconomy 6 Implementation of Method
  *
- * @author Nijikokun <nijikokun@shortmail.com> (@nijikokun) @copyright (c) 2011 @license AOL license
- *         <http://aol.nexua.org>
+ * @author Nijikokun <nijikokun@shortmail.com> (
+ * @nijikokun)
+ * @copyright (c) 2011
+ * @license AOL license <http://aol.nexua.org>
  */
 @SuppressWarnings("deprecation")
 public class BOSE6 implements Method

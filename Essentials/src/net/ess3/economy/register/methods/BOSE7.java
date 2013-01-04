@@ -9,8 +9,10 @@ import net.ess3.economy.register.Method;
  * BOSEconomy 7 Implementation of Method
  *
  * @author Acrobot
- * @author Nijikokun <nijikokun@shortmail.com> (@nijikokun) @copyright (c) 2011 @license AOL license
- *         <http://aol.nexua.org>
+ * @author Nijikokun <nijikokun@shortmail.com> (
+ * @nijikokun)
+ * @copyright (c) 2011
+ * @license AOL license <http://aol.nexua.org>
  */
 public class BOSE7 implements Method
 {

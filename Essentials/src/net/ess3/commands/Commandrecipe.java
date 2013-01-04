@@ -14,7 +14,6 @@ import net.ess3.utils.Util;
 
 public class Commandrecipe extends EssentialsCommand
 {
-
 	@Override
 	public void run(final CommandSender sender, final String commandLabel, final String[] args) throws Exception
 	{

@@ -38,7 +38,7 @@ public class SpawnsHolder extends AsyncStorageObjectHolder<Spawns> implements IE
 	/**
 	 * Sets a spawn location
 	 *
-	 * @param loc   - Location you want to set as spawn
+	 * @param loc - Location you want to set as spawn
 	 * @param group - Group to save it undr in the config
 	 */
 	public void setSpawn(final Location loc, final String group)

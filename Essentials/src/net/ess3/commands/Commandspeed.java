@@ -10,7 +10,6 @@ import net.ess3.permissions.Permissions;
 
 public class Commandspeed extends EssentialsCommand
 {
-
 	@Override
 	protected void run(final CommandSender sender, final String commandLabel, final String[] args) throws Exception
 	{

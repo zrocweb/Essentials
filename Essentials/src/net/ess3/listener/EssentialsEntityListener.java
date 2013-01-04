@@ -44,7 +44,7 @@ public class EssentialsEntityListener implements Listener
 			attacker.updateActivity(true);
 			if (settings.getData().getGeneral().getLoginAttackDelay() > 0 && !Permissions.PVPDELAY_EXEMPT.isAuthorized(
 					attacker) && (System.currentTimeMillis() < (attacker.getTimestamp(
-					TimestampType.LOGIN) + settings.getData().getGeneral().getLoginAttackDelay())))
+																TimestampType.LOGIN) + settings.getData().getGeneral().getLoginAttackDelay())))
 			{
 				event.setCancelled(true);
 			}
@@ -67,13 +67,13 @@ public class EssentialsEntityListener implements Listener
 					{
 						ess.getPlugin().scheduleSyncDelayedTask(
 								new Runnable()
-								{
-									@Override
-									public void run()
-									{
-										attacker.getServer().dispatchCommand(((Player)eAttack), command.replaceAll("\\{player\\}", defender.getName()));
-									}
-								});
+						{
+							@Override
+							public void run()
+							{
+								attacker.getServer().dispatchCommand(((Player)eAttack), command.replaceAll("\\{player\\}", defender.getName()));
+							}
+						});
 						event.setCancelled(true);
 						return;
 					}

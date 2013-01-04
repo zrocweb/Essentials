@@ -49,81 +49,81 @@ public abstract class StorageObjectMap<I> extends CacheLoader<String, I> impleme
 	{
 		ess.getPlugin().scheduleAsyncDelayedTask(
 				new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (!folder.exists() || !folder.isDirectory())
 				{
-					@Override
-					public void run()
+					return;
+				}
+				keys.clear();
+				cache.invalidateAll();
+				for (String string : folder.list())
+				{
+					final File file = new File(folder, string);
+					if (!file.isFile() || !file.canRead())
 					{
-						if (!folder.exists() || !folder.isDirectory())
+						continue;
+					}
+					if (string.endsWith(".yml"))
+					{
+						addFileToKeys(string.substring(0, string.length() - 4));
+					}
+					if (string.endsWith(".zip"))
+					{
+						addZipFile(file);
+					}
+				}
+			}
+
+			private void addFileToKeys(String filename)
+			{
+				try
+				{
+
+					final String name = Util.decodeFileName(filename);
+					keys.add(name.toLowerCase(Locale.ENGLISH));
+
+				}
+				catch (InvalidNameException ex)
+				{
+					ess.getLogger().log(Level.WARNING, "Invalid filename: " + filename, ex);
+				}
+			}
+
+			private void addZipFile(File file)
+			{
+				try
+				{
+					final ZipFile zipFile = new ZipFile(file);
+					try
+					{
+						final Enumeration<ZipArchiveEntry> entries = zipFile.getEntriesInPhysicalOrder();
+						while (entries.hasMoreElements())
 						{
-							return;
-						}
-						keys.clear();
-						cache.invalidateAll();
-						for (String string : folder.list())
-						{
-							final File file = new File(folder, string);
-							if (!file.isFile() || !file.canRead())
+							final ZipArchiveEntry entry = entries.nextElement();
+							final String name = entry.getName();
+							if (entry.isDirectory() || entry.getSize() == 0 || !zipCheck.matcher(name).matches())
 							{
 								continue;
 							}
-							if (string.endsWith(".yml"))
-							{
-								addFileToKeys(string.substring(0, string.length() - 4));
-							}
-							if (string.endsWith(".zip"))
-							{
-								addZipFile(file);
-							}
+							final String shortName = name.substring(0, name.length() - 4);
+							addFileToKeys(shortName);
+							zippedfiles.put(name, file);
 						}
 					}
-
-					private void addFileToKeys(String filename)
+					finally
 					{
-						try
-						{
-
-							final String name = Util.decodeFileName(filename);
-							keys.add(name.toLowerCase(Locale.ENGLISH));
-
-						}
-						catch (InvalidNameException ex)
-						{
-							ess.getLogger().log(Level.WARNING, "Invalid filename: " + filename, ex);
-						}
+						zipFile.close();
 					}
-
-					private void addZipFile(File file)
-					{
-						try
-						{
-							final ZipFile zipFile = new ZipFile(file);
-							try
-							{
-								final Enumeration<ZipArchiveEntry> entries = zipFile.getEntriesInPhysicalOrder();
-								while (entries.hasMoreElements())
-								{
-									final ZipArchiveEntry entry = entries.nextElement();
-									final String name = entry.getName();
-									if (entry.isDirectory() || entry.getSize() == 0 || !zipCheck.matcher(name).matches())
-									{
-										continue;
-									}
-									final String shortName = name.substring(0, name.length() - 4);
-									addFileToKeys(shortName);
-									zippedfiles.put(name, file);
-								}
-							}
-							finally
-							{
-								zipFile.close();
-							}
-						}
-						catch (IOException ex)
-						{
-							ess.getLogger().log(Level.WARNING, "Error opening file " + file.getAbsolutePath(), ex);
-						}
-					}
-				});
+				}
+				catch (IOException ex)
+				{
+					ess.getLogger().log(Level.WARNING, "Error opening file " + file.getAbsolutePath(), ex);
+				}
+			}
+		});
 	}
 
 	@Override

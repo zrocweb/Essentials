@@ -212,8 +212,9 @@ public class EssentialsSign
 		{
 			return true;
 		}
-		final BlockFace[] directions = new BlockFace[]{
-				BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST
+		final BlockFace[] directions = new BlockFace[]
+		{
+			BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST
 		};
 		for (BlockFace blockFace : directions)
 		{

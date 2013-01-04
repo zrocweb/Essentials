@@ -26,10 +26,7 @@ public class MetricsStarter implements Runnable
 		EssentialsProtect,
 		EssentialsGeoIP,
 		EssentialsXMPP
-	}
-
-
-	;
+	};
 
 	public MetricsStarter(final IEssentials plugin)
 	{
@@ -87,49 +84,49 @@ public class MetricsStarter implements Runnable
 			final Graph featureGraph = metrics.createGraph("Features");
 			featureGraph.addPlotter(
 					new Plotter("Unique Accounts")
-					{
-						@Override
-						public int getValue()
-						{
-							return ess.getUserMap().getUniqueUsers();
-						}
-					});
+			{
+				@Override
+				public int getValue()
+				{
+					return ess.getUserMap().getUniqueUsers();
+				}
+			});
 			featureGraph.addPlotter(
 					new Plotter("Jails")
-					{
-						@Override
-						public int getValue()
-						{
-							return ess.getJails().getCount();
-						}
-					});
+			{
+				@Override
+				public int getValue()
+				{
+					return ess.getJails().getCount();
+				}
+			});
 			featureGraph.addPlotter(
 					new Plotter("Kits")
+			{
+				@Override
+				public int getValue()
+				{
+					int size = 0;
+					try
 					{
-						@Override
-						public int getValue()
-						{
-							int size = 0;
-							try
-							{
-								size = ess.getKits().getList().size();
-							}
-							catch (Exception ex)
-							{
-							}
-							return size;
+						size = ess.getKits().getList().size();
+					}
+					catch (Exception ex)
+					{
+					}
+					return size;
 
-						}
-					});
+				}
+			});
 			featureGraph.addPlotter(
 					new Plotter("Warps")
-					{
-						@Override
-						public int getValue()
-						{
-							return ess.getWarps().getList().size();
-						}
-					});
+			{
+				@Override
+				public int getValue()
+				{
+					return ess.getWarps().getList().size();
+				}
+			});
 
 			final Graph enabledGraph = metrics.createGraph("EnabledFeatures");
 			enabledGraph.addPlotter(new SimplePlotter("Total"));

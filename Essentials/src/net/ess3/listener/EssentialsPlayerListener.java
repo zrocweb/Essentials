@@ -54,7 +54,8 @@ public class EssentialsPlayerListener implements Listener
 	public void onPlayerRespawn(final PlayerRespawnEvent event)
 	{
 		final Player player = event.getPlayer();
-		if (!player.isOnline()) {
+		if (!player.isOnline())
+		{
 			return;
 		}
 		final IUser user = userMap.getUser(player);
@@ -164,90 +165,90 @@ public class EssentialsPlayerListener implements Listener
 	{
 		ess.getPlugin().scheduleAsyncDelayedTask(
 				new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						delayedJoin(event.getPlayer());
-					}
-				});
-/* TODO: Make sure my update is good
-		if (!event.getPlayer().isOnline())
 		{
-			return;
-		}
-
-		ess.getBackup().startTask();
-
-		final String joinMessage = ess.getSettings().getData().getGeneral().getJoinMessage();
-		if (joinMessage != null)
-		{
-			final IText itOutput = new KeywordReplacer(new SimpleTextInput(joinMessage), ess.getUserMap().getUser(event.getPlayer()), ess);
-			final SimpleTextPager stPager = new SimpleTextPager(itOutput);
-			event.setJoinMessage(FormatUtil.replaceFormat(stPager.getString(0)));
-		}
-		else
-		{
-			event.setJoinMessage(joinMessage);
-		}
-
-		final IUser user = ess.getUserMap().getUser(event.getPlayer());
-
-		user.updateDisplayName();
-		user.getData().setIpAddress(user.getPlayer().getAddress().getAddress().getHostAddress());
-		user.updateActivity(false);
-
-		for (String p : ess.getVanishedPlayers())
-		{
-			if (!Permissions.VANISH_SEE_OTHERS.isAuthorized(user))
+			@Override
+			public void run()
 			{
-				user.getPlayer().hidePlayer(ess.getUserMap().getUser(p).getPlayer());
+				delayedJoin(event.getPlayer());
 			}
-		}
+		});
+		/* TODO: Make sure my update is good
+		 if (!event.getPlayer().isOnline())
+		 {
+		 return;
+		 }
 
-		if (Permissions.SLEEPINGIGNORED.isAuthorized(user))
-		{
-			user.getPlayer().setSleepingIgnored(true);
-		}
-		user.queueSave();
+		 ess.getBackup().startTask();
+
+		 final String joinMessage = ess.getSettings().getData().getGeneral().getJoinMessage();
+		 if (joinMessage != null)
+		 {
+		 final IText itOutput = new KeywordReplacer(new SimpleTextInput(joinMessage), ess.getUserMap().getUser(event.getPlayer()), ess);
+		 final SimpleTextPager stPager = new SimpleTextPager(itOutput);
+		 event.setJoinMessage(FormatUtil.replaceFormat(stPager.getString(0)));
+		 }
+		 else
+		 {
+		 event.setJoinMessage(joinMessage);
+		 }
+
+		 final IUser user = ess.getUserMap().getUser(event.getPlayer());
+
+		 user.updateDisplayName();
+		 user.getData().setIpAddress(user.getPlayer().getAddress().getAddress().getHostAddress());
+		 user.updateActivity(false);
+
+		 for (String p : ess.getVanishedPlayers())
+		 {
+		 if (!Permissions.VANISH_SEE_OTHERS.isAuthorized(user))
+		 {
+		 user.getPlayer().hidePlayer(ess.getUserMap().getUser(p).getPlayer());
+		 }
+		 }
+
+		 if (Permissions.SLEEPINGIGNORED.isAuthorized(user))
+		 {
+		 user.getPlayer().setSleepingIgnored(true);
+		 }
+		 user.queueSave();
 
 
-		final ISettings settings = ess.getSettings();
+		 final ISettings settings = ess.getSettings();
 
-		if (!settings.getData().getCommands().isDisabled("motd") && Permissions.MOTD.isAuthorized(user))
-		{
-			try
-			{
-				final IText input = new TextInput(user, "motd", true, ess);
-				final IText output = new KeywordReplacer(input, user, ess);
-				final TextPager pager = new TextPager(output, true);
-				pager.showPage("1", null, "motd", user);
-			}
-			catch (IOException ex)
-			{
-				if (settings.getData().getGeneral().isDebug())
-				{
-					LOGGER.log(Level.WARNING, ex.getMessage(), ex);
-				}
-				else
-				{
-					LOGGER.log(Level.WARNING, ex.getMessage());
-				}
-			}
-		}
+		 if (!settings.getData().getCommands().isDisabled("motd") && Permissions.MOTD.isAuthorized(user))
+		 {
+		 try
+		 {
+		 final IText input = new TextInput(user, "motd", true, ess);
+		 final IText output = new KeywordReplacer(input, user, ess);
+		 final TextPager pager = new TextPager(output, true);
+		 pager.showPage("1", null, "motd", user);
+		 }
+		 catch (IOException ex)
+		 {
+		 if (settings.getData().getGeneral().isDebug())
+		 {
+		 LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+		 }
+		 else
+		 {
+		 LOGGER.log(Level.WARNING, ex.getMessage());
+		 }
+		 }
+		 }
 
-		if (!settings.getData().getCommands().isDisabled("mail") && Permissions.MAIL.isAuthorized(user))
-		{
-			final List<String> mail = user.getData().getMails();
-			if (mail == null || mail.isEmpty())
-			{
-				user.sendMessage(_("noNewMail"));
-			}
-			else
-			{
-				user.sendMessage(_("youHaveNewMail", mail.size()));
-			}
-		}*/
+		 if (!settings.getData().getCommands().isDisabled("mail") && Permissions.MAIL.isAuthorized(user))
+		 {
+		 final List<String> mail = user.getData().getMails();
+		 if (mail == null || mail.isEmpty())
+		 {
+		 user.sendMessage(_("noNewMail"));
+		 }
+		 else
+		 {
+		 user.sendMessage(_("youHaveNewMail", mail.size()));
+		 }
+		 }*/
 	}
 
 	public void delayedJoin(final Player player)
@@ -279,13 +280,13 @@ public class EssentialsPlayerListener implements Listener
 		{
 			ess.getPlugin().scheduleSyncDelayedTask(
 					new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							user.getPlayer().setSleepingIgnored(true);
-						}
-					});
+			{
+				@Override
+				public void run()
+				{
+					user.getPlayer().setSleepingIgnored(true);
+				}
+			});
 		}
 
 		final Commands settings = ess.getSettings().getData().getCommands();
@@ -329,7 +330,6 @@ public class EssentialsPlayerListener implements Listener
 			}
 		}
 	}
-
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerLogin(final PlayerLoginEvent event)
@@ -411,16 +411,15 @@ public class EssentialsPlayerListener implements Listener
 			event.getItemStack().setType(event.getBucket());
 			ess.getPlugin().scheduleSyncDelayedTask(
 					new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							user.getPlayer().updateInventory();
-						}
-					});
+			{
+				@Override
+				public void run()
+				{
+					user.getPlayer().updateInventory();
+				}
+			});
 		}
 	}
-
 	private final Pattern spaceSplit = Pattern.compile(" ");
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -545,13 +544,13 @@ public class EssentialsPlayerListener implements Listener
 				used = true;
 				ess.getPlugin().scheduleSyncDelayedTask(
 						new Runnable()
-						{
-							@Override
-							public void run()
-							{
-								user.getServer().dispatchCommand(user.getPlayer(), command);
-							}
-						});
+				{
+					@Override
+					public void run()
+					{
+						user.getServer().dispatchCommand(user.getPlayer(), command);
+					}
+				});
 			}
 		}
 		return used;
@@ -584,7 +583,7 @@ public class EssentialsPlayerListener implements Listener
 			{
 				final IUser invOwner = userMap.getUser((Player)invHolder);
 				if (user.isInvSee() && (!Permissions.INVSEE_MODIFY.isAuthorized(user) || Permissions.INVSEE_PREVENT_MODIFY.isAuthorized(
-						invOwner) || !invOwner.isOnline()))
+										invOwner) || !invOwner.isOnline()))
 				{
 					event.setCancelled(true);
 				}

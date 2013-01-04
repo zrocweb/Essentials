@@ -72,6 +72,5 @@ public enum Permissions implements IPermission
 	{
 		return PermissionFactory.checkPermission(sender, this);
 	}
-
 	public static DotStarPermission ENTITY_TARGET_BYPASS = new DotStarPermission("essentials.protect.entitytarget.bypass");
 }

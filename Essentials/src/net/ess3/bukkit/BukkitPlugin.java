@@ -64,13 +64,13 @@ public class BukkitPlugin extends JavaPlugin implements IPlugin
 				getLogger().log(Level.SEVERE, ex.toString());
 				pm.registerEvents(
 						new Listener()
-						{
-							@EventHandler(priority = EventPriority.LOW)
-							public void onPlayerJoin(final PlayerJoinEvent event)
-							{
-								event.getPlayer().sendMessage("Essentials failed to load, read the log file.");
-							}
-						}, this);
+				{
+					@EventHandler(priority = EventPriority.LOW)
+					public void onPlayerJoin(final PlayerJoinEvent event)
+					{
+						event.getPlayer().sendMessage("Essentials failed to load, read the log file.");
+					}
+				}, this);
 				for (Player player : getServer().getOnlinePlayers())
 				{
 					player.sendMessage("Essentials failed to load, read the log file.");

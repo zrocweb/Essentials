@@ -8,7 +8,6 @@ import net.ess3.permissions.Permissions;
 
 public class Commandsocialspy extends EssentialsToggleCommand
 {
-
 	protected void setValue(final IUser player, final boolean value)
 	{
 		player.getData().setSocialspy(value);

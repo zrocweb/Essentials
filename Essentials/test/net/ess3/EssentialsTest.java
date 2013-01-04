@@ -45,37 +45,37 @@ public abstract class EssentialsTest extends TestCase
 			when(server.getOnlinePlayers()).thenReturn(playerList.toArray(new Player[0]));
 			when(server.getPlayerExact(anyString())).thenAnswer(
 					new Answer<Player>()
+			{
+				@Override
+				public Player answer(InvocationOnMock invocation) throws Throwable
+				{
+					Object[] args = invocation.getArguments();
+					String name = (String)args[0];
+					for (Player player : playerList)
 					{
-						@Override
-						public Player answer(InvocationOnMock invocation) throws Throwable
+						if (player.getName().equalsIgnoreCase(name))
 						{
-							Object[] args = invocation.getArguments();
-							String name = (String)args[0];
-							for (Player player : playerList)
-							{
-								if (player.getName().equalsIgnoreCase(name))
-								{
-									return player;
-								}
-							}
-							return null;
+							return player;
 						}
-					});
+					}
+					return null;
+				}
+			});
 			when(server.getPluginManager()).thenReturn(pluginManager);
 			when(server.getOfflinePlayers()).thenReturn(playerList.toArray(new Player[0]));
 			when(server.getOfflinePlayer(anyString())).thenAnswer(
 					new Answer<OfflinePlayer>()
-					{
-						@Override
-						public OfflinePlayer answer(InvocationOnMock invocation) throws Throwable
-						{
-							Object[] args = invocation.getArguments();
-							String name = (String)args[0];
-							OfflinePlayer player = mock(OfflinePlayer.class);
-							when(player.getName()).thenReturn(name);
-							return player;
-						}
-					});
+			{
+				@Override
+				public OfflinePlayer answer(InvocationOnMock invocation) throws Throwable
+				{
+					Object[] args = invocation.getArguments();
+					String name = (String)args[0];
+					OfflinePlayer player = mock(OfflinePlayer.class);
+					when(player.getName()).thenReturn(name);
+					return player;
+				}
+			});
 			Bukkit.setServer(server);
 		}
 		else

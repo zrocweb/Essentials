@@ -236,68 +236,68 @@ public final class XMPPManager extends Handler implements MessageListener, ChatM
 	{
 		loggerThread = new Thread(
 				new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				final Set<LogRecord> copy = new HashSet<LogRecord>();
+				final Set<String> failedUsers = new HashSet<String>();
+				while (threadrunning)
 				{
-					@Override
-					public void run()
+					synchronized (logrecords)
 					{
-						final Set<LogRecord> copy = new HashSet<LogRecord>();
-						final Set<String> failedUsers = new HashSet<String>();
-						while (threadrunning)
+						if (!logrecords.isEmpty())
 						{
-							synchronized (logrecords)
-							{
-								if (!logrecords.isEmpty())
-								{
-									copy.addAll(logrecords);
-									logrecords.clear();
-								}
-							}
-							if (!copy.isEmpty())
-							{
-								for (String user : logUsers)
-								{
-									try
-									{
-										XMPPManager.this.startChat(user);
-										for (LogRecord logRecord : copy)
-										{
-											final String message = String.format(
-													"[" + logRecord.getLevel().getLocalizedName() + "] " + logRecord.getMessage(), logRecord.getParameters());
-											if (!XMPPManager.this.sendMessage(user, message))
-											{
-												failedUsers.add(user);
-												break;
-											}
-
-										}
-									}
-									catch (XMPPException ex)
-									{
-										failedUsers.add(user);
-										LOGGER.removeHandler(XMPPManager.this);
-										LOGGER.log(Level.SEVERE, "Failed to deliver log message! Disabling logging to XMPP.", ex);
-									}
-								}
-								logUsers.removeAll(failedUsers);
-								if (logUsers.isEmpty())
-								{
-									LOGGER.removeHandler(XMPPManager.this);
-									threadrunning = false;
-								}
-								copy.clear();
-							}
+							copy.addAll(logrecords);
+							logrecords.clear();
+						}
+					}
+					if (!copy.isEmpty())
+					{
+						for (String user : logUsers)
+						{
 							try
 							{
-								Thread.sleep(2000);
+								XMPPManager.this.startChat(user);
+								for (LogRecord logRecord : copy)
+								{
+									final String message = String.format(
+											"[" + logRecord.getLevel().getLocalizedName() + "] " + logRecord.getMessage(), logRecord.getParameters());
+									if (!XMPPManager.this.sendMessage(user, message))
+									{
+										failedUsers.add(user);
+										break;
+									}
+
+								}
 							}
-							catch (InterruptedException ex)
+							catch (XMPPException ex)
 							{
-								threadrunning = false;
+								failedUsers.add(user);
+								LOGGER.removeHandler(XMPPManager.this);
+								LOGGER.log(Level.SEVERE, "Failed to deliver log message! Disabling logging to XMPP.", ex);
 							}
 						}
-						LOGGER.removeHandler(XMPPManager.this);
+						logUsers.removeAll(failedUsers);
+						if (logUsers.isEmpty())
+						{
+							LOGGER.removeHandler(XMPPManager.this);
+							threadrunning = false;
+						}
+						copy.clear();
 					}
-				});
+					try
+					{
+						Thread.sleep(2000);
+					}
+					catch (InterruptedException ex)
+					{
+						threadrunning = false;
+					}
+				}
+				LOGGER.removeHandler(XMPPManager.this);
+			}
+		});
 		loggerThread.start();
 	}
 

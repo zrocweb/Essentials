@@ -592,7 +592,6 @@ public class User extends UserBase implements IUser
 	{
 		return true;
 	}
-
 	private transient long teleportInvulnerabilityTimestamp = 0;
 
 	public void enableInvulnerabilityAfterTeleport()

@@ -7,7 +7,6 @@ import net.ess3.permissions.Permissions;
 
 public class Commandenderchest extends EssentialsCommand
 {
-
 	@Override
 	protected void run(final IUser user, final String commandLabel, final String[] args) throws Exception
 	{

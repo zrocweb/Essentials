@@ -12,7 +12,6 @@ public class ExecuteTimer
 	private final transient List<ExecuteRecord> times;
 	private final transient DecimalFormat decimalFormat = new DecimalFormat("#0.000", DecimalFormatSymbols.getInstance(Locale.US));
 
-
 	public ExecuteTimer()
 	{
 		times = new ArrayList<ExecuteRecord>();

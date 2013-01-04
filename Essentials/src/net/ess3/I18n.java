@@ -100,7 +100,6 @@ public class I18n implements II18n
 		}
 		return messageFormat.format(objects);
 	}
-
 	private final Pattern partSplit = Pattern.compile("[_\\.]");
 
 	public void updateLocale(final String loc)

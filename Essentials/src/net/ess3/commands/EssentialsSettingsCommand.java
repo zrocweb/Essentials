@@ -8,7 +8,6 @@ import net.ess3.api.IUser;
 
 public abstract class EssentialsSettingsCommand extends EssentialsCommand
 {
-
 	abstract protected void informSender(final CommandSender sender, final boolean value, final IUser player);
 
 	abstract protected void informPlayer(final IUser player);
@@ -82,5 +81,4 @@ public abstract class EssentialsSettingsCommand extends EssentialsCommand
 			informSender(sender, true, matchPlayer);
 		}
 	}
-
 }

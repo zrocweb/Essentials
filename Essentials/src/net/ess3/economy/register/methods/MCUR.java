@@ -9,7 +9,9 @@ import net.ess3.economy.register.Method;
 /**
  * MultiCurrency Method implementation.
  *
- * @author Acrobot @copyright (c) 2011 @license AOL license <http://aol.nexua.org>
+ * @author Acrobot
+ * @copyright (c) 2011
+ * @license AOL license <http://aol.nexua.org>
  */
 public class MCUR implements Method
 {

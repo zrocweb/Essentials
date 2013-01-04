@@ -1,6 +1,5 @@
 package net.ess3.extra.commands;
 
-
 import java.util.Random;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -30,14 +29,14 @@ public class Commandkittycannon extends EssentialsCommand
 		ocelot.setVelocity(user.getPlayer().getEyeLocation().getDirection().multiply(2));
 		ess.getPlugin().scheduleSyncDelayedTask(
 				new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						final Location loc = ocelot.getLocation();
-						ocelot.remove();
-						loc.getWorld().createExplosion(loc, 0F);
-					}
-				}, 20);
+		{
+			@Override
+			public void run()
+			{
+				final Location loc = ocelot.getLocation();
+				ocelot.remove();
+				loc.getWorld().createExplosion(loc, 0F);
+			}
+		}, 20);
 	}
 }

@@ -46,35 +46,35 @@ public class UpdateProcess implements Listener
 			Bukkit.getLogger().log(Level.INFO, "A newer version of EssentialsUpdate is found. Downloading new file and reloading server.");
 			new SelfUpdate(
 					new AbstractWorkListener(plugin, updateCheck.getNewVersionInfo())
+			{
+				@Override
+				public void onWorkAbort(final String message)
+				{
+					if (message != null && !message.isEmpty() && UpdateProcess.this.currentPlayer != null && UpdateProcess.this.currentPlayer.isOnline())
 					{
-						@Override
-						public void onWorkAbort(final String message)
-						{
-							if (message != null && !message.isEmpty() && UpdateProcess.this.currentPlayer != null && UpdateProcess.this.currentPlayer.isOnline())
-							{
-								UpdateProcess.this.currentPlayer.sendMessage(message);
-							}
-							if (message != null && !message.isEmpty())
-							{
-								Bukkit.getLogger().log(Level.SEVERE, message);
-							}
-							UpdateProcess.this.currentPlayer = null;
-						}
+						UpdateProcess.this.currentPlayer.sendMessage(message);
+					}
+					if (message != null && !message.isEmpty())
+					{
+						Bukkit.getLogger().log(Level.SEVERE, message);
+					}
+					UpdateProcess.this.currentPlayer = null;
+				}
 
-						@Override
-						public void onWorkDone(final String message)
-						{
-							if (message != null && !message.isEmpty() && UpdateProcess.this.currentPlayer != null && UpdateProcess.this.currentPlayer.isOnline())
-							{
-								UpdateProcess.this.currentPlayer.sendMessage(message);
-							}
-							if (message != null && !message.isEmpty())
-							{
-								Bukkit.getLogger().log(Level.INFO, message);
-							}
-							UpdateProcess.this.currentPlayer = null;
-						}
-					}).start();
+				@Override
+				public void onWorkDone(final String message)
+				{
+					if (message != null && !message.isEmpty() && UpdateProcess.this.currentPlayer != null && UpdateProcess.this.currentPlayer.isOnline())
+					{
+						UpdateProcess.this.currentPlayer.sendMessage(message);
+					}
+					if (message != null && !message.isEmpty())
+					{
+						Bukkit.getLogger().log(Level.INFO, message);
+					}
+					UpdateProcess.this.currentPlayer = null;
+				}
+			}).start();
 			return true;
 		}
 		if (updateCheck.getResult() == UpdateCheck.CheckResult.NEW_ESS_BUKKIT)

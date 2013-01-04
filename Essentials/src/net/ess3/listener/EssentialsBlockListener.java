@@ -40,14 +40,14 @@ public class EssentialsBlockListener implements Listener
 		{
 			ess.getPlugin().scheduleSyncDelayedTask(
 					new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							player.getInventory().addItem(itemstack);
-							player.updateInventory();
-						}
-					});
+			{
+				@Override
+				public void run()
+				{
+					player.getInventory().addItem(itemstack);
+					player.updateInventory();
+				}
+			});
 		}
 	}
 }

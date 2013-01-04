@@ -162,7 +162,6 @@ public enum Permissions implements IPermission
 	{
 		return PermissionFactory.checkPermission(sender, this);
 	}
-
 	public static DotStarPermission ENCHANT = new DotStarPermission("essentials.enchant");
 	public static MaterialDotStarPermission GIVE = new MaterialDotStarPermission("essentials.give", PermissionDefault.TRUE);
 	public static DotStarPermission RANKS = new DotStarPermission("essentials.ranks");
