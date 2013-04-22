@@ -21,32 +21,31 @@ public class Commandspawner extends EssentialsCommand
 	{
 		if (args.length < 1 || args[0].length() < 2)
 		{
-			throw new NotEnoughArgumentsException(_("mobsAvailable", Util.joinList(LivingEntities.getLivingEntityList())));
+			throw new NotEnoughArgumentsException(_("§6Mobs:§r {0}", Util.joinList(LivingEntities.getLivingEntityList())));
 		}
 
 		final Location target = LocationUtil.getTarget(user.getPlayer());
 		if (target == null || target.getBlock().getType() != Material.MOB_SPAWNER)
 		{
-			throw new Exception(_("mobSpawnTarget"));
+			throw new Exception(_("§4Target block must be a mob spawner."));
 		}
 
 		try
 		{
 			String name = args[0];
 
-			EntityType mob = null;
-			mob = LivingEntities.fromName(name);
+			EntityType mob = LivingEntities.fromName(name);
 			if (mob == null)
 			{
-				user.sendMessage(_("invalidMob"));
+				user.sendMessage(_("Invalid mob type."));
 				return;
 			}
 			if (!Permissions.SPAWNER.isAuthorized(user, mob.getName()))
 			{
-				throw new Exception(_("unableToSpawnMob"));
+				throw new Exception(_("§4Unable to spawn mob."));
 			}
 			int delay = 0;
-			if(args.length > 1 && Util.isInt(args[1]))
+			if (args.length > 1 && Util.isInt(args[1]))
 			{
 				delay = Integer.parseInt(args[1]);
 			}
@@ -58,11 +57,11 @@ public class Commandspawner extends EssentialsCommand
 			spawner.setDelay(delay);
 
 			charge.charge(user);
-			user.sendMessage(_("setSpawner", mob.getName()));
+			user.sendMessage(_("§6Changed spawner type to§c {0}", mob.getName()));
 		}
 		catch (Exception ex)
 		{
-			throw new Exception(_("mobSpawnError"), ex);
+			throw new Exception(_("§4Error while changing mob spawner."), ex);
 		}
 	}
 }

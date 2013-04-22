@@ -19,18 +19,25 @@ public class Commandbanip extends EssentialsCommand
 
 		if (player == null)
 		{
-			ess.getServer().banIP(args[0]);
-			sender.sendMessage(_("banIpAddress"));
+			if (args[0].matches("\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b"))
+			{
+				ess.getServer().banIP(args[0]);
+				sender.sendMessage(_("Banned IP address"));
+			}
+			else
+			{
+				sender.sendMessage(_("invalidIpAddress"));
+			}
 		}
 		else
 		{
 			final String ipAddress = player.getData().getIpAddress();
 			if (ipAddress.length() == 0)
 			{
-				throw new Exception(_("playerNotFound"));
+				throw new Exception(_("§4Player not found."));
 			}
 			ess.getServer().banIP(ipAddress);
-			sender.sendMessage(_("banIpAddress"));
+			sender.sendMessage(_("Banned IP address"));
 		}
 	}
 }

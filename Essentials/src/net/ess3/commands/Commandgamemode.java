@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 
 public class Commandgamemode extends EssentialsSettingsCommand
 {
-
 	protected void setValue(final IUser player, GameMode value)
 	{
 		if (value == null)
@@ -30,7 +29,7 @@ public class Commandgamemode extends EssentialsSettingsCommand
 	{
 		if (value)
 		{
-			sender.sendMessage(_("gameMode", getValue(player).toString().toLowerCase(Locale.ENGLISH), player.getPlayer().getDisplayName()));
+			sender.sendMessage(_("§6Set game mode§c {0} §6for {1}§6.", getValue(player).toString().toLowerCase(Locale.ENGLISH), player.getPlayer().getDisplayName()));
 		}
 		else
 		{
@@ -41,7 +40,7 @@ public class Commandgamemode extends EssentialsSettingsCommand
 	@Override
 	protected void informPlayer(final IUser player)
 	{
-		final String message = _("gameMode", getValue(player).toString().toLowerCase(Locale.ENGLISH), player.getPlayer().getDisplayName());
+		final String message = _("§6Set game mode§c {0} §6for {1}§6.", getValue(player).toString().toLowerCase(Locale.ENGLISH), player.getPlayer().getDisplayName());
 		player.sendMessage(message);
 	}
 
@@ -124,5 +123,4 @@ public class Commandgamemode extends EssentialsSettingsCommand
 		}
 		return mode;
 	}
-
 }

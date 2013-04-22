@@ -55,10 +55,9 @@ public class EssentialsTimer implements Runnable
 				user.setLastOnlineActivity(currentTime);
 				user.checkActivity();
 
-				boolean mailDisabled = false;
 				ISettings settings = ess.getSettings();
 
-				mailDisabled = settings.getData().getCommands().isDisabled("mail");
+				boolean mailDisabled = settings.getData().getCommands().isDisabled("mail");
 
 				// New mail notification
 				if (!mailDisabled && Permissions.MAIL.isAuthorized(user) && !user.gotMailInfo())
@@ -66,7 +65,7 @@ public class EssentialsTimer implements Runnable
 					final List<String> mail = user.getMails();
 					if (mail != null && !mail.isEmpty())
 					{
-						user.sendMessage(I18n._("youHaveNewMail", mail.size()));
+						user.sendMessage(I18n._("§6You have§c {0} §6messages! Type §c/mail read§6 to view your mail.", mail.size()));
 					}
 				}
 			}

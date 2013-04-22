@@ -41,7 +41,7 @@ public class EssentialsEntityListener implements Listener
 			attacker.updateActivity(true);
 			if (settings.getData().getGeneral().getLoginAttackDelay() > 0 && !Permissions.PVPDELAY_EXEMPT.isAuthorized(
 					attacker) && (System.currentTimeMillis() < (attacker.getTimestamp(
-					TimestampType.LOGIN) + settings.getData().getGeneral().getLoginAttackDelay())))
+																TimestampType.LOGIN) + settings.getData().getGeneral().getLoginAttackDelay())))
 			{
 				event.setCancelled(true);
 			}
@@ -121,13 +121,13 @@ public class EssentialsEntityListener implements Listener
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeathEvent(final PlayerDeathEvent event)
 	{
-		final IUser user = ess.getUserMap().getUser((Player)event.getEntity());
+		final IUser user = ess.getUserMap().getUser(event.getEntity());
 
 		final ISettings settings = ess.getSettings();
 		if (Permissions.BACK_ONDEATH.isAuthorized(user) && !settings.getData().getCommands().isDisabled("back"))
 		{
 			user.setLastLocation();
-			user.sendMessage(_("backAfterDeath"));
+			user.sendMessage(_("§6Use the /back command to return to your death point."));
 		}
 		if (!settings.getData().getGeneral().isDeathMessages())
 		{
@@ -205,6 +205,18 @@ public class EssentialsEntityListener implements Listener
 				{
 					event.setIntensity(entity, 0d);
 				}
+			}
+		}
+	}
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	public void onEntityShootBow (EntityShootBowEvent event)
+	{
+		if (event.getEntity() instanceof Player)
+		{
+			final IUser user = ess.getUserMap().getUser((Player)event.getEntity());
+			if (user.getData().isAfk())
+			{
+				user.updateActivity(true);
 			}
 		}
 	}

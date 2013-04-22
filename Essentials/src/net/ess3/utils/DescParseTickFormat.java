@@ -228,7 +228,7 @@ public final class DescParseTickFormat
 	// --------------------------------------------
 	public static String format(final long ticks)
 	{
-		return _("timeFormat", format24(ticks), format12(ticks), formatTicks(ticks));
+		return _("§c{0}§6 or §c{1}§6 or §c{2}§6.", format24(ticks), format12(ticks), formatTicks(ticks));
 	}
 
 	public static String formatTicks(final long ticks)
@@ -279,7 +279,7 @@ public final class DescParseTickFormat
 		// How many seconds on the last day?
 		final long seconds = (long)Math.floor(dticks / ticksPerSecond);
 
-		// Now we create an english GMT calendar (We wan't no daylight savings)
+		// Now we create an english GMT calendar (We want no daylight savings)
 		final Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"), Locale.ENGLISH);
 		cal.setLenient(true);
 

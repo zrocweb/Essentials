@@ -14,7 +14,6 @@ import org.bukkit.inventory.*;
 
 public class Commandrecipe extends EssentialsCommand
 {
-
 	@Override
 	public void run(final CommandSender sender, final String commandLabel, final String[] args) throws Exception
 	{
@@ -34,23 +33,23 @@ public class Commandrecipe extends EssentialsCommand
 			}
 			else
 			{
-				throw new Exception(_("invalidNumber"));
+				throw new Exception(_("Invalid Number."));
 			}
 		}
 
 		final List<Recipe> recipesOfType = ess.getServer().getRecipesFor(itemType);
 		if (recipesOfType.size() < 1)
 		{
-			throw new Exception(_("recipeNone", getMaterialName(itemType)));
+			throw new Exception(_("No recipes exist for {0}", getMaterialName(itemType)));
 		}
 
 		if (recipeNo < 0 || recipeNo >= recipesOfType.size())
 		{
-			throw new Exception(_("recipeBadIndex"));
+			throw new Exception(_("There is no recipe by that number."));
 		}
 
 		final Recipe selectedRecipe = recipesOfType.get(recipeNo);
-		sender.sendMessage(_("recipe", getMaterialName(itemType), recipeNo + 1, recipesOfType.size()));
+		sender.sendMessage(_("§6Recipe for §c{0}§6 ({1} of {2})", getMaterialName(itemType), recipeNo + 1, recipesOfType.size()));
 
 		if (selectedRecipe instanceof FurnaceRecipe)
 		{
@@ -67,13 +66,13 @@ public class Commandrecipe extends EssentialsCommand
 
 		if (recipesOfType.size() > 1 && args.length == 1)
 		{
-			sender.sendMessage(_("recipeMore", commandLabel, args[0], getMaterialName(itemType)));
+			sender.sendMessage(_("§6Type /{0} §c{1}§6 <number> to see other recipes for §c{2}§6.", commandLabel, args[0], getMaterialName(itemType)));
 		}
 	}
 
 	public void furnaceRecipe(final CommandSender sender, final FurnaceRecipe recipe)
 	{
-		sender.sendMessage(_("recipeFurnace", getMaterialName(recipe.getInput())));
+		sender.sendMessage(_("§6Smelt §c{0}", getMaterialName(recipe.getInput())));
 	}
 
 	public void shapedRecipe(final CommandSender sender, final ShapedRecipe recipe)
@@ -89,7 +88,7 @@ public class Commandrecipe extends EssentialsCommand
 				for (int k = 0; k < recipe.getShape()[j].length(); k++)
 				{
 					final ItemStack item = recipe.getIngredientMap().get(recipe.getShape()[j].toCharArray()[k]);
-					if(item == null)
+					if (item == null)
 					{
 						continue;
 					}
@@ -119,16 +118,16 @@ public class Commandrecipe extends EssentialsCommand
 					materials[j][k] = item == null ? null : item.getType();
 				}
 			}
-			sender.sendMessage(_("recipeGrid", colorMap.get(materials[0][0]), colorMap.get(materials[0][1]), colorMap.get(materials[0][2])));
-			sender.sendMessage(_("recipeGrid", colorMap.get(materials[1][0]), colorMap.get(materials[1][1]), colorMap.get(materials[1][2])));
-			sender.sendMessage(_("recipeGrid", colorMap.get(materials[2][0]), colorMap.get(materials[2][1]), colorMap.get(materials[2][2])));
+			sender.sendMessage(_("§{0}X §6| §{1}X §6| §{2}X", colorMap.get(materials[0][0]), colorMap.get(materials[0][1]), colorMap.get(materials[0][2])));
+			sender.sendMessage(_("§{0}X §6| §{1}X §6| §{2}X", colorMap.get(materials[1][0]), colorMap.get(materials[1][1]), colorMap.get(materials[1][2])));
+			sender.sendMessage(_("§{0}X §6| §{1}X §6| §{2}X", colorMap.get(materials[2][0]), colorMap.get(materials[2][1]), colorMap.get(materials[2][2])));
 
 			final StringBuilder s = new StringBuilder();
 			for (Material items : colorMap.keySet().toArray(new Material[colorMap.size()]))
 			{
-				s.append(_("recipeGridItem", colorMap.get(items), getMaterialName(items)));
+				s.append(_("§{0}X §6is §c{1}", colorMap.get(items), getMaterialName(items)));
 			}
-			sender.sendMessage(_("recipeWhere", s.toString()));
+			sender.sendMessage(_("§6Where: {0}", s.toString()));
 		}
 	}
 
@@ -157,7 +156,7 @@ public class Commandrecipe extends EssentialsCommand
 				}
 				s.append(" ");
 			}
-			sender.sendMessage(_("recipeShapeless", s.toString()));
+			sender.sendMessage(_("§6Combine §c{0}", s.toString()));
 		}
 	}
 
@@ -165,7 +164,7 @@ public class Commandrecipe extends EssentialsCommand
 	{
 		if (stack == null)
 		{
-			return _("recipeNothing");
+			return _("nothing");
 		}
 		return getMaterialName(stack.getType());
 	}
@@ -174,7 +173,7 @@ public class Commandrecipe extends EssentialsCommand
 	{
 		if (type == null)
 		{
-			return _("recipeNothing");
+			return _("nothing");
 		}
 		return type.toString().replace("_", " ").toLowerCase(Locale.ENGLISH);
 	}

@@ -27,7 +27,7 @@ public class Commandinvsee extends EssentialsCommand
 			invUser.getPlayer().getInventory().setContents(user.getData().getInventory().getBukkitInventory());
 			user.getData().setInventory(null);
 			user.queueSave();
-			user.sendMessage(_("invRestored"));
+			user.sendMessage(_("§6Your inventory has been restored."));
 			throw new NoChargeException();
 		}
 		if (user.getData().getInventory() == null)
@@ -43,11 +43,11 @@ public class Commandinvsee extends EssentialsCommand
 		}
 		if (invUserStack.length > userStackLength)
 		{
-			throw new Exception(_("invBigger"));
+			throw new Exception(_("§4The other users inventory is bigger than yours."));
 		}
 		user.getPlayer().getInventory().setContents(invUserStack);
-		user.sendMessage(_("invSee", invUser.getPlayer().getDisplayName()));
-		user.sendMessage(_("invSeeHelp"));
+		user.sendMessage(_("§6You see the inventory of§c {0}§6.", invUser.getPlayer().getDisplayName()));
+		user.sendMessage(_("§6Use /invsee to restore your inventory."));
 		throw new NoChargeException();
 	}
 }

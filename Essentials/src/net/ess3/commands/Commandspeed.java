@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 
 public class Commandspeed extends EssentialsCommand
 {
-
 	@Override
 	protected void run(final CommandSender sender, final String commandLabel, final String[] args) throws Exception
 	{
@@ -61,12 +60,12 @@ public class Commandspeed extends EssentialsCommand
 		//if (isFly)
 		//{
 		user.getPlayer().setFlySpeed((float)getRealMoveSpeed(speed, isFly, isBypass));
-		user.sendMessage(_("moveSpeed", _("flying"), speed, user.getPlayer().getDisplayName()));
+		user.sendMessage(_("§6Set {0} speed to§c {1} §6for {2}§6.", _("flying"), speed, user.getPlayer().getDisplayName()));
 		//}
 		//else
 		//{
 		//	user.setWalkSpeed(getRealMoveSpeed(speed, isFly, isBypass));
-		//	user.sendMessage(_("moveSpeed", _("walking"), speed, user.getDisplayName()));
+		//	user.sendMessage(_("§6Set {0} speed to§c {1} §6for {2}§6.", _("walking"), speed, user.getDisplayName()));
 		//}
 	}
 
@@ -77,12 +76,12 @@ public class Commandspeed extends EssentialsCommand
 			if (isFly)
 			{
 				matchPlayer.setFlySpeed((float)getRealMoveSpeed(speed, isFly, isBypass));
-				sender.sendMessage(_("moveSpeed", _("flying"), speed, matchPlayer.getDisplayName()));
+				sender.sendMessage(_("§6Set {0} speed to§c {1} §6for {2}§6.", _("flying"), speed, matchPlayer.getDisplayName()));
 			}
 			//else
 			//	{
 			//		matchPlayer.setWalkSpeed(getRealMoveSpeed(speed, isFly, isBypass));
-			//		sender.sendMessage(_("moveSpeed", _("walking"), speed, matchPlayer.getDisplayName()));
+			//		sender.sendMessage(_("§6Set {0} speed to§c {1} §6for {2}§6.", _("walking"), speed, matchPlayer.getDisplayName()));
 			//	}
 		}
 	}

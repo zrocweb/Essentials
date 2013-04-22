@@ -55,11 +55,11 @@ public class BukkitPlugin extends JavaPlugin implements IPlugin
 			{
 				if (pm.getPlugin("EssentialsUpdate") == null)
 				{
-					getLogger().log(Level.SEVERE, _("essentialsHelp1"));
+					getLogger().log(Level.SEVERE, _("The file is broken and Essentials can't open it. Essentials is now disabled. If you can't fix the file yourself, go to http://tiny.cc/EssentialsChat"));
 				}
 				else
 				{
-					getLogger().log(Level.SEVERE, _("essentialsHelp2"));
+					getLogger().log(Level.SEVERE, _("The file is broken and Essentials can't open it. Essentials is now disabled. If you can't fix the file yourself, either type /essentialshelp in game or go to http://tiny.cc/EssentialsChat"));
 				}
 				getLogger().log(Level.SEVERE, ex.toString());
 				pm.registerEvents(
@@ -100,14 +100,17 @@ public class BukkitPlugin extends JavaPlugin implements IPlugin
 
 
 		final MetricsStarter metricsStarter = new MetricsStarter(ess);
-		if (metricsStarter.getStart() != null && metricsStarter.getStart() == true)
+		if (metricsStarter.getStart() != null)
 		{
-			getServer().getScheduler().runTaskLaterAsynchronously(this, metricsStarter, 1);
-		}
-		else if (metricsStarter.getStart() != null && metricsStarter.getStart() == false)
-		{
-			final MetricsListener metricsListener = new MetricsListener(ess, metricsStarter);
-			pm.registerEvents(metricsListener, this);
+			if (metricsStarter.getStart())
+			{
+				getServer().getScheduler().runTaskLaterAsynchronously(this, metricsStarter, 1);
+			}
+			else
+			{
+				final MetricsListener metricsListener = new MetricsListener(ess, metricsStarter);
+				pm.registerEvents(metricsListener, this);
+			}
 		}
 	}
 
@@ -149,7 +152,7 @@ public class BukkitPlugin extends JavaPlugin implements IPlugin
 	{
 		return getServer().getScheduler().runTaskLaterAsynchronously(this, run, delay);
 	}
-	
+
 	@Override
 	public BukkitTask runTaskTimerAsynchronously(final Runnable run, final long delay, final long delay2)
 	{

@@ -27,7 +27,7 @@ public class Commandtempban extends EssentialsCommand
 		{
 			if (Permissions.TEMPBAN_OFFLINE.isAuthorized(sender))
 			{
-				sender.sendMessage(_("tempbanExempt"));
+				sender.sendMessage(_("§4You may not tempban that player."));
 				return;
 			}
 		}
@@ -35,7 +35,7 @@ public class Commandtempban extends EssentialsCommand
 		{
 			if (Permissions.TEMPBAN_EXEMPT.isAuthorized(user) && sender instanceof Player)
 			{
-				sender.sendMessage(_("tempbanExempt"));
+				sender.sendMessage(_("§4You may not tempban that player."));
 				return;
 			}
 		}
@@ -43,13 +43,13 @@ public class Commandtempban extends EssentialsCommand
 		final long banTimestamp = DateUtil.parseDateDiff(time, true);
 
 		final long max = ess.getSettings().getData().getCommands().getTempban().getMaxTempbanTime();
-		if(max != -1 && banTimestamp - Calendar.getInstance().getTimeInMillis() > max && !Permissions.TEMPBAN_UNLIMITED.isAuthorized(sender))
+		if (max != -1 && banTimestamp - Calendar.getInstance().getTimeInMillis() > max && !Permissions.TEMPBAN_UNLIMITED.isAuthorized(sender))
 		{
 			sender.sendMessage(_("tempbanOversized"));
 			return;
 		}
 
-		final String banReason = _("tempBanned", DateUtil.formatDateDiff(banTimestamp));
+		final String banReason = _("Temporarily banned from server for {0}.", DateUtil.formatDateDiff(banTimestamp));
 		final Ban ban = new Ban();
 		final UserData userData = user.getData();
 		ban.setReason(banReason);
@@ -65,7 +65,7 @@ public class Commandtempban extends EssentialsCommand
 			final IUser player = ess.getUserMap().getUser(onlinePlayer);
 			if (Permissions.BAN_NOTIFY.isAuthorized(player))
 			{
-				onlinePlayer.sendMessage(_("playerBanned", senderName, user.getName(), banReason));
+				onlinePlayer.sendMessage(_("§6Player§c {0} §6banned {1} §6for {2}.", senderName, user.getName(), banReason));
 			}
 		}
 	}

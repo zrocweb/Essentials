@@ -18,6 +18,7 @@ public enum Permissions implements IPermission
 	PREVENTDAMAGE_PROJECTILES(PermissionDefault.FALSE),
 	PREVENTDAMAGE_LAVADAMAGE(PermissionDefault.FALSE),
 	PREVENTDAMAGE_TNT(PermissionDefault.FALSE),
+	PREVENTDAMAGE_TNTMINECART(PermissionDefault.FALSE),
 	PREVENTDAMAGE_SUFFOCATION(PermissionDefault.FALSE),
 	PREVENTDAMAGE_FIRE(PermissionDefault.FALSE),
 	PREVENTDAMAGE_DROWNING(PermissionDefault.FALSE),
@@ -72,6 +73,5 @@ public enum Permissions implements IPermission
 	{
 		return PermissionFactory.checkPermission(sender, this);
 	}
-
 	public static DotStarPermission ENTITY_TARGET_BYPASS = new DotStarPermission("essentials.protect.entitytarget.bypass");
 }

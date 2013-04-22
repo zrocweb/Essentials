@@ -38,13 +38,13 @@ public class Commandsethome extends EssentialsCommand
 					}
 					else
 					{
-						throw new Exception(_("maxHomes", ess.getRanks().getHomeLimit(user)));
+						throw new Exception(_("§4You cannot set more than§c {0} §4homes.", ess.getRanks().getHomeLimit(user)));
 					}
 
 				}
 				else
 				{
-					throw new Exception(_("maxHomes", 1));
+					throw new Exception(_("§4You cannot set more than§c {0} §4homes.", 1));
 				}
 			}
 			else
@@ -54,7 +54,7 @@ public class Commandsethome extends EssentialsCommand
 					IUser usersHome = ess.getUserMap().getUser(ess.getServer().getPlayer(args[0]));
 					if (usersHome == null)
 					{
-						throw new NoSuchFieldException(_("playerNotFound"));
+						throw new NoSuchFieldException(_("§4Player not found."));
 					}
 					String name = args[1].toLowerCase(Locale.ENGLISH);
 					if (!Permissions.SETHOME_MULTIPLE.isAuthorized(user))
@@ -63,7 +63,7 @@ public class Commandsethome extends EssentialsCommand
 					}
 					if ("bed".equals(name.toLowerCase(Locale.ENGLISH)))
 					{
-						throw new NoSuchFieldException(_("invalidHomeName"));
+						throw new NoSuchFieldException(_("§4Invalid home name!"));
 					}
 
 					usersHome.getData().addHome(name, user.getPlayer().getLocation());
@@ -78,8 +78,8 @@ public class Commandsethome extends EssentialsCommand
 		}
 		user.sendMessage(
 				_(
-						"homeSet", user.getPlayer().getLocation().getWorld().getName(), user.getPlayer().getLocation().getBlockX(),
-						user.getPlayer().getLocation().getBlockY(), user.getPlayer().getLocation().getBlockZ()));
+				"homeSet", user.getPlayer().getLocation().getWorld().getName(), user.getPlayer().getLocation().getBlockX(),
+				user.getPlayer().getLocation().getBlockY(), user.getPlayer().getLocation().getBlockZ()));
 
 	}
 }

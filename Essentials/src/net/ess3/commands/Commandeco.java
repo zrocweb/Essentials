@@ -55,7 +55,7 @@ public class Commandeco extends EssentialsCommand
 					break;
 				}
 			}
-			if (ecoResetAll == true)
+			if (ecoResetAll)
 			{
 				ess.broadcastMessage(null, _("ecoResetAll", settings.getData().getEconomy().getCurrencySymbol() + amount));
 			}
@@ -78,7 +78,7 @@ public class Commandeco extends EssentialsCommand
 				case TAKE:
 					if (!player.canAfford(amount, false))
 					{
-						throw new Exception(_("notEnoughMoney"));
+						throw new Exception(_("§4You do not have sufficient funds."));
 					}
 					player.takeMoney(amount);
 					break;
@@ -89,7 +89,7 @@ public class Commandeco extends EssentialsCommand
 					break;
 				}
 			}
-			if (ecoResetAllOnline == true)
+			if (ecoResetAllOnline)
 			{
 				ess.broadcastMessage(null, _("ecoResetAllOnline", settings.getData().getEconomy().getCurrencySymbol() + amount));
 			}
@@ -106,7 +106,7 @@ public class Commandeco extends EssentialsCommand
 			case TAKE:
 				if (!player.canAfford(amount, false))
 				{
-					throw new Exception(_("notEnoughMoney"));
+					throw new Exception(_("§4You do not have sufficient funds."));
 				}
 				player.takeMoney(amount, sender);
 				break;
