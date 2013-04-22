@@ -59,11 +59,11 @@ public class Commandtree extends EssentialsCommand
 		final boolean success = user.getPlayer().getWorld().generateTree(safeLocation, tree);
 		if (success)
 		{
-			user.sendMessage(_("treeSpawned"));
+			user.sendMessage(_("§6Tree spawned."));
 		}
 		else
 		{
-			user.sendMessage(_("treeFailure"));
+			user.sendMessage(_("§4Tree generation failure. Try again on grass or dirt."));
 		}
 	}
 }

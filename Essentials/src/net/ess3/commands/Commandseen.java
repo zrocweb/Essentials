@@ -33,31 +33,31 @@ public class Commandseen extends EssentialsCommand
 		{
 			final IUser u = ess.getUserMap().matchUserExcludingHidden(args[0], getPlayerOrNull(sender));
 			u.setDisplayNick();
-			sender.sendMessage(_("seenOnline", u.getPlayer().getDisplayName(), DateUtil.formatDateDiff(u.getTimestamp(TimestampType.LOGIN))));
-			if(u.getData().isAfk())
+			sender.sendMessage(_("§6Player§c {0} §6is §aonline§6 since {1}.", u.getPlayer().getDisplayName(), DateUtil.formatDateDiff(u.getTimestamp(TimestampType.LOGIN))));
+			if (u.getData().isAfk())
 			{
-				sender.sendMessage(_("whoisAFK", _("true")));
+				sender.sendMessage(_("§6 - AFK:§r {0}", _("§atrue§r")));
 			}
-			if(u.getData().isJailed())
+			if (u.getData().isJailed())
 			{
-				sender.sendMessage(_("whoisJail", u.getTimestamp(TimestampType.JAIL) > 0
-								   ? DateUtil.formatDateDiff(u.getTimestamp(TimestampType.JAIL))
-								   : _("true")));
+				sender.sendMessage(_("§6 - Jail:§r {0}", u.getTimestamp(TimestampType.JAIL) > 0
+														 ? DateUtil.formatDateDiff(u.getTimestamp(TimestampType.JAIL))
+														 : _("§atrue§r")));
 			}
-			if(u.getData().isMuted())
+			if (u.getData().isMuted())
 			{
-				sender.sendMessage(_("whoisMuted", u.getTimestamp(TimestampType.MUTE) > 0
-								   ? DateUtil.formatDateDiff(u.getTimestamp(TimestampType.MUTE))
-								   : _("true")));
+				sender.sendMessage(_("§6 - Muted:§r {0}", u.getTimestamp(TimestampType.MUTE) > 0
+														  ? DateUtil.formatDateDiff(u.getTimestamp(TimestampType.MUTE))
+														  : _("§atrue§r")));
 			}
 		}
 		catch (PlayerNotFoundException e)
 		{
 			final IUser u = ess.getUserMap().matchUser(args[0], true);
-			sender.sendMessage(_("seenOffline", u.getName(), DateUtil.formatDateDiff(u.getTimestamp(TimestampType.LOGOUT))));
+			sender.sendMessage(_("§6Player§c {0} §6is §4offline§6 since {1}.", u.getName(), DateUtil.formatDateDiff(u.getTimestamp(TimestampType.LOGOUT))));
 			if (u.isBanned())
 			{
-				sender.sendMessage(_("whoisBanned", show ? u.getData().getBan().getReason() : _("true")));
+				sender.sendMessage(_("§6 - Banned:§r {0}", show ? u.getData().getBan().getReason() : _("§atrue§r")));
 			}
 		}
 	}

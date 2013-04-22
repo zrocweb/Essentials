@@ -72,7 +72,7 @@ public class Commandsell extends EssentialsCommand
 	{
 		if (is == null || is.getType() == Material.AIR)
 		{
-			throw new Exception(_("itemSellAir"));
+			throw new Exception(_("You really tried to sell Air? Put an item in your hand."));
 		}
 		int amount = 0;
 		if (args.length > 1)
@@ -88,7 +88,7 @@ public class Commandsell extends EssentialsCommand
 
 		if (Double.isNaN(worth))
 		{
-			throw new Exception(_("itemCannotBeSold"));
+			throw new Exception(_("§4That item cannot be sold to the server."));
 		}
 
 
@@ -127,9 +127,9 @@ public class Commandsell extends EssentialsCommand
 		{
 			if (!isBulkSell)
 			{
-				user.sendMessage(_("itemNotEnough1"));
-				user.sendMessage(_("itemNotEnough2"));
-				throw new Exception(_("itemNotEnough3"));
+				user.sendMessage(_("§4You do not have enough of that item to sell."));
+				user.sendMessage(_("§6If you meant to sell all of your items of that type, use /sell itemname."));
+				throw new Exception(_("§6/sell itemname -1 will sell all but one item, etc."));
 			}
 			else
 			{
@@ -148,8 +148,8 @@ public class Commandsell extends EssentialsCommand
 		user.giveMoney(worth * amount);
 		user.sendMessage(
 				_(
-						"itemSold", FormatUtil.displayCurrency(worth * amount, ess), amount, is.getType().toString().toLowerCase(Locale.ENGLISH),
-						FormatUtil.displayCurrency(worth, ess)));
+				"itemSold", FormatUtil.displayCurrency(worth * amount, ess), amount, is.getType().toString().toLowerCase(Locale.ENGLISH),
+				FormatUtil.displayCurrency(worth, ess)));
 		logger.log(
 				Level.INFO, _(
 				"itemSoldConsole", player.getDisplayName(), is.getType().toString().toLowerCase(Locale.ENGLISH),

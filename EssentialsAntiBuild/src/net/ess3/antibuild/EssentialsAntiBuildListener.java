@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -47,7 +48,7 @@ public class EssentialsAntiBuildListener implements Listener
 		{
 			if (antib.getSettings().getData().isWarnOnBuildDisallow())
 			{
-				user.sendMessage(_("antiBuildPlace", type.toString()));
+				user.sendMessage(_("§4You are not permitted to place§c {0} §4here.", type.toString()));
 			}
 			event.setCancelled(true);
 			return;
@@ -57,7 +58,7 @@ public class EssentialsAntiBuildListener implements Listener
 		{
 			if (antib.getSettings().getData().isWarnOnBuildDisallow())
 			{
-				user.sendMessage(_("antiBuildPlace", type.toString()));
+				user.sendMessage(_("§4You are not permitted to place§c {0} §4here.", type.toString()));
 			}
 			event.setCancelled(true);
 			return;
@@ -65,7 +66,7 @@ public class EssentialsAntiBuildListener implements Listener
 
 		if (antib.getSettings().getData().getAlert().getAlertOnPlacementContains(type) && !Permissions.ALERTS_NOTRIGGER.isAuthorized(user))
 		{
-			antib.getEssentialsConnect().alert(user, type.toString(), _("alertPlaced"));
+			antib.getEssentialsConnect().alert(user, type.toString(), _("placed:"));
 		}
 	}
 
@@ -81,7 +82,7 @@ public class EssentialsAntiBuildListener implements Listener
 		{
 			if (antib.getSettings().getData().isWarnOnBuildDisallow())
 			{
-				user.sendMessage(_("antiBuildBreak", type.toString()));
+				user.sendMessage(_("§4You are not permitted to break§c {0} §4blocks here.", type.toString()));
 			}
 			event.setCancelled(true);
 			return;
@@ -91,7 +92,7 @@ public class EssentialsAntiBuildListener implements Listener
 		{
 			if (antib.getSettings().getData().isWarnOnBuildDisallow())
 			{
-				user.sendMessage(_("antiBuildBreak", type.toString()));
+				user.sendMessage(_("§4You are not permitted to break§c {0} §4blocks here.", type.toString()));
 			}
 			event.setCancelled(true);
 			return;
@@ -99,7 +100,7 @@ public class EssentialsAntiBuildListener implements Listener
 
 		if (antib.getSettings().getData().getAlert().getAlertOnBreakContains(type) && !Permissions.ALERTS_NOTRIGGER.isAuthorized(user))
 		{
-			antib.getEssentialsConnect().alert(user, type.toString(), _("alertBroke"));
+			antib.getEssentialsConnect().alert(user, type.toString(), _("broke:"));
 		}
 	}
 
@@ -119,7 +120,7 @@ public class EssentialsAntiBuildListener implements Listener
 				{
 					if (warn)
 					{
-						user.sendMessage(_("antiBuildBreak", Material.PAINTING.toString()));
+						user.sendMessage(_("§4You are not permitted to break§c {0} §4blocks here.", Material.PAINTING.toString()));
 					}
 					event.setCancelled(true);
 				}
@@ -127,7 +128,7 @@ public class EssentialsAntiBuildListener implements Listener
 				{
 					if (warn)
 					{
-						user.sendMessage(_("antiBuildBreak", Material.ITEM_FRAME.toString()));
+						user.sendMessage(_("§4You are not permitted to break§c {0} §4blocks here.", Material.ITEM_FRAME.toString()));
 					}
 					event.setCancelled(true);
 				}
@@ -173,7 +174,7 @@ public class EssentialsAntiBuildListener implements Listener
 		{
 			if (antib.getSettings().getData().isWarnOnBuildDisallow())
 			{
-				user.sendMessage(_("antiBuildUse", item.getType().toString()));
+				user.sendMessage(_("§4You are not permitted to use§c {0}§4.", item.getType().toString()));
 			}
 			event.setCancelled(true);
 			return;
@@ -181,7 +182,7 @@ public class EssentialsAntiBuildListener implements Listener
 
 		if (item != null && antib.getSettings().getData().getAlert().getAlertOnUseContains(item.getType()) && !Permissions.ALERTS_NOTRIGGER.isAuthorized(user))
 		{
-			antib.getEssentialsConnect().alert(user, item.getType().toString(), _("alertUsed"));
+			antib.getEssentialsConnect().alert(user, item.getType().toString(), _("used:"));
 		}
 
 		if (antib.getSettings().getData().isDisableUse() && !Permissions.BUILD.isAuthorized(user))
@@ -191,7 +192,7 @@ public class EssentialsAntiBuildListener implements Listener
 				event.setCancelled(true);
 				if (antib.getSettings().getData().isWarnOnBuildDisallow())
 				{
-					user.sendMessage(_("antiBuildUse", item.getType().toString()));
+					user.sendMessage(_("§4You are not permitted to use§c {0}§4.", item.getType().toString()));
 				}
 				return;
 			}
@@ -200,7 +201,7 @@ public class EssentialsAntiBuildListener implements Listener
 				event.setCancelled(true);
 				if (antib.getSettings().getData().isWarnOnBuildDisallow())
 				{
-					user.sendMessage(_("antiBuildInteract", event.getClickedBlock().getType().toString()));
+					user.sendMessage(_("§4You are not permitted to interact with§c {0}§4.", event.getClickedBlock().getType().toString()));
 				}
 			}
 		}
@@ -223,7 +224,7 @@ public class EssentialsAntiBuildListener implements Listener
 					event.setCancelled(true);
 					if (antib.getSettings().getData().isWarnOnBuildDisallow())
 					{
-						user.sendMessage(_("antiBuildCraft", item.getType().toString()));
+						user.sendMessage(_("§4You are not permitted to create§c {0}§4.", item.getType().toString()));
 					}
 				}
 			}
@@ -265,9 +266,19 @@ public class EssentialsAntiBuildListener implements Listener
 				user.getPlayer().updateInventory();
 				if (antib.getSettings().getData().isWarnOnBuildDisallow())
 				{
-					user.sendMessage(_("antiBuildDrop", item.getType().toString()));
+					user.sendMessage(_("§4You are not permitted to drop§c {0}§4.", item.getType().toString()));
 				}
 			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void onBlockDispense(final BlockDispenseEvent event)
+	{
+		final Material mat = event.getItem().getType();
+		if (antib.getSettings().getData().getBlacklist().getDispenser(mat))
+		{
+			event.setCancelled(true);
 		}
 	}
 }

@@ -54,6 +54,6 @@ public class Commanddelhome extends EssentialsCommand
 		}
 		user.getData().removeHome(name.toLowerCase(Locale.ENGLISH));
 		user.queueSave();
-		sender.sendMessage(_("deleteHome", name));
+		sender.sendMessage(_("§6Home§c {0} §6has been removed.", name));
 	}
 }

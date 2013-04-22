@@ -20,11 +20,13 @@ public class EssentialsConnect
 	{
 		if (!essProtect.getDescription().getVersion().equals(essPlugin.getDescription().getVersion()))
 		{
-			LOGGER.log(Level.WARNING, _("versionMismatchAll"));
+			LOGGER.log(Level.WARNING, _("§4Version mismatch! Please update all Essentials jars to the same version."));
 		}
 		ess = ((BukkitPlugin)essPlugin).getEssentials();
 		antib = (IAntiBuild)essProtect;
-		antib.setSettings(new AntiBuildHolder(ess));
+		AntiBuildHolder settings = new AntiBuildHolder(ess);
+		antib.setSettings(settings);
+		ess.addReloadListener(settings);
 	}
 
 	public void onDisable()

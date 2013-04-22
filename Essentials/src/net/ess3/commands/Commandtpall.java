@@ -27,10 +27,10 @@ public class Commandtpall extends EssentialsCommand
 		final IUser player = ess.getUserMap().matchUserExcludingHidden(args[0], getPlayerOrNull(sender));
 		teleportAllPlayers(sender, player);
 	}
-	
+
 	private void teleportAllPlayers(CommandSender sender, IUser user)
 	{
-		sender.sendMessage(_("teleportAll"));
+		sender.sendMessage(_("§6Teleporting all players..."));
 		for (Player onlinePlayer : server.getOnlinePlayers())
 		{
 			final IUser player = ess.getUserMap().getUser(onlinePlayer);

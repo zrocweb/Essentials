@@ -12,6 +12,6 @@ public class UserDoesNotExistException extends Exception
 
 	public UserDoesNotExistException(String name)
 	{
-		super(_("userDoesNotExist", name));
+		super(_("§4The user§c {0} §4does not exist.", name));
 	}
 }

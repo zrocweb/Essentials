@@ -18,11 +18,13 @@ public class EssentialsConnect
 	{
 		if (!essProtect.getDescription().getVersion().equals(essPlugin.getDescription().getVersion()))
 		{
-			LOGGER.log(Level.WARNING, _("versionMismatchAll"));
+			LOGGER.log(Level.WARNING, _("§4Version mismatch! Please update all Essentials jars to the same version."));
 		}
 		ess = ((BukkitPlugin)essPlugin).getEssentials();
 		protect = (IProtect)essProtect;
-		protect.setSettings(new ProtectHolder(ess));
+		ProtectHolder settings = new ProtectHolder(ess);
+		protect.setSettings(settings);
+		ess.addReloadListener(settings);
 	}
 
 	public IEssentials getEssentials()

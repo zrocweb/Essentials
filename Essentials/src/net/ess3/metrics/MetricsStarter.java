@@ -32,9 +32,6 @@ public class MetricsStarter implements Runnable
 		EssentialsXMPP
 	}
 
-
-	;
-
 	public MetricsStarter(final IEssentials plugin)
 	{
 		ess = plugin;
@@ -48,16 +45,17 @@ public class MetricsStarter implements Runnable
 			ISettings settings = ess.getSettings();
 			if (!metrics.isOptOut())
 			{
-				if (settings.getData().getGeneral().getMetricsEnabled() == true)
-				{
-					start = true;
-				}
-				else if (settings.getData().getGeneral().getMetricsEnabled() == null)
+
+				if (settings.getData().getGeneral().getMetricsEnabled() == null)
 				{
 					ess.getLogger().info(_("metrics1"));
 					ess.getLogger().info(_("metrics2"));
 					ess.getLogger().info(_("metrics4"));
 					start = false;
+				}
+				else if (settings.getData().getGeneral().getMetricsEnabled())
+				{
+					start = true;
 				}
 			}
 		}
@@ -139,7 +137,7 @@ public class MetricsStarter implements Runnable
 
 			ISettings settings = ess.getSettings();
 			final String BKcommand = settings.getData().getGeneral().getBackup().getCommand();
-			;
+
 			if (BKcommand != null && !"".equals(BKcommand))
 			{
 				enabledGraph.addPlotter(new SimplePlotter("Backup"));

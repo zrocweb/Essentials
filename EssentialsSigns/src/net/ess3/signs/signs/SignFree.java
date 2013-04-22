@@ -30,7 +30,7 @@ public class SignFree extends EssentialsSign
 		final ItemStack item = getItemStack(sign.getLine(1), 1, ess);
 		if (item.getType() == Material.AIR)
 		{
-			throw new SignException(_("cantSpawnItem", "Air"));
+			throw new SignException(_("§4You are not allowed to spawn the item§c {0}§4.", "Air"));
 		}
 
 		item.setAmount(item.getType().getMaxStackSize());

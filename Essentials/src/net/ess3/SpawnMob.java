@@ -48,41 +48,41 @@ public class SpawnMob
 		return Util.joinList(availableList);
 	}
 
-    public static List<String> mobParts(final String mobString)
-    {
-        String[] mobParts = comma.split(mobString);
+	public static List<String> mobParts(final String mobString)
+	{
+		String[] mobParts = comma.split(mobString);
 
-        List<String> mobs = new ArrayList<String>();
+		List<String> mobs = new ArrayList<String>();
 
-        for (String mobPart : mobParts)
-        {
-            String[] mobDatas = colon.split(mobPart);
-            mobs.add(mobDatas[0]);
-        }
+		for (String mobPart : mobParts)
+		{
+			String[] mobDatas = colon.split(mobPart);
+			mobs.add(mobDatas[0]);
+		}
 
-        return mobs;
-    }
+		return mobs;
+	}
 
-    public static List<String> mobData(final String mobString)
-    {
-        String[] mobParts = comma.split(mobString);
+	public static List<String> mobData(final String mobString)
+	{
+		String[] mobParts = comma.split(mobString);
 
-        List<String> mobData = new ArrayList<String>();
+		List<String> mobData = new ArrayList<String>();
 
-        for (String mobPart : mobParts)
-        {
-            String[] mobDatas = colon.split(mobPart);
-            if(mobDatas.length == 1)
-            {
-                mobData.add(null);
-            }
-            else
-            {
-                mobData.add(mobDatas[1]);
-            }
-        }
-        return mobData;
-    }
+		for (String mobPart : mobParts)
+		{
+			String[] mobDatas = colon.split(mobPart);
+			if (mobDatas.length == 1)
+			{
+				mobData.add(null);
+			}
+			else
+			{
+				mobData.add(mobDatas[1]);
+			}
+		}
+		return mobData;
+	}
 
 	// This method spawns a mob where the user is looking, owned by user
 	public static void spawnmob(final IEssentials ess, final Server server, final IUser user, final List<String> parts, final List<String> data, int mobCount) throws Exception
@@ -90,7 +90,7 @@ public class SpawnMob
 		final Block block = LocationUtil.getTarget(user.getPlayer()).getBlock();
 		if (block == null)
 		{
-			throw new Exception(_("unableToSpawnMob"));
+			throw new Exception(_("§4Unable to spawn mob."));
 		}
 		spawnmob(ess, server, user, user, block.getLocation(), parts, data, mobCount);
 	}
@@ -112,11 +112,11 @@ public class SpawnMob
 	{
 		final Location sloc = LocationUtil.getSafeDestination(loc);
 
-        for (int i = 0; i < parts.size(); i++)
-        {
-            EntityType mob = LivingEntities.fromName(parts.get(i));
-            checkSpawnable(ess, sender, mob);
-        }
+		for (int i = 0; i < parts.size(); i++)
+		{
+			EntityType mob = LivingEntities.fromName(parts.get(i));
+			checkSpawnable(ess, sender, mob);
+		}
 
 		ISettings settings = ess.getSettings();
 		int serverLimit = settings.getData().getCommands().getSpawnmob().getLimit();
@@ -124,10 +124,10 @@ public class SpawnMob
 		if (mobCount > serverLimit)
 		{
 			mobCount = serverLimit;
-			sender.sendMessage(_("mobSpawnLimit"));
+			sender.sendMessage(_("Mob quantity limited to server limit."));
 		}
 
-        EntityType mob = LivingEntities.fromName(parts.get(0));
+		EntityType mob = LivingEntities.fromName(parts.get(0));
 		try
 		{
 			for (int i = 0; i < mobCount; i++)
@@ -138,66 +138,66 @@ public class SpawnMob
 		}
 		catch (MobException e1)
 		{
-			throw new Exception(_("unableToSpawnMob"), e1);
+			throw new Exception(_("§4Unable to spawn mob."), e1);
 		}
 		catch (NumberFormatException e2)
 		{
-			throw new Exception(_("numberRequired"), e2);
+			throw new Exception(_("A number goes there, silly."), e2);
 		}
 		catch (NullPointerException np)
 		{
-			throw new Exception(_("soloMob"), np);
+			throw new Exception(_("§4That mob likes to be alone."), np);
 		}
 	}
 
 	private static void spawnMob(final IEssentials ess, final Server server, final CommandSender sender, final IUser target, final Location sloc, final List<String> parts, final List<String> data) throws Exception
 	{
-        EntityType mob;
-        Entity spawnedMob = null;
-        Entity spawnedMount;
-        final World spawningWorld = sloc.getWorld();
+		EntityType mob;
+		Entity spawnedMob = null;
+		Entity spawnedMount;
+		final World spawningWorld = sloc.getWorld();
 
-        for (int i = 0; i < parts.size(); i++)
-        {
-            if (i == 0)
-            {
-                mob = EntityType.fromName(parts.get(i));
-                spawnedMob = spawningWorld.spawn(sloc, (Class<? extends LivingEntity>)mob.getEntityClass());
+		for (int i = 0; i < parts.size(); i++)
+		{
+			if (i == 0)
+			{
+				mob = EntityType.fromName(parts.get(i));
+				spawnedMob = spawningWorld.spawn(sloc, (Class<? extends LivingEntity>)mob.getEntityClass());
 
-                if (data.get(i) != null)
-                {
-                    changeMobData(mob, spawnedMob, data.get(i), target);
-                }
-            }
+				if (data.get(i) != null)
+				{
+					changeMobData(mob, spawnedMob, data.get(i), target);
+				}
+			}
 
-            int next = (i + 1);
-            if (next < parts.size())
-            {
-                EntityType mMob = EntityType.fromName(parts.get(next));
-                spawnedMount = spawningWorld.spawn(sloc, (Class<? extends LivingEntity>)mMob.getEntityClass());
+			int next = (i + 1);
+			if (next < parts.size())
+			{
+				EntityType mMob = EntityType.fromName(parts.get(next));
+				spawnedMount = spawningWorld.spawn(sloc, (Class<? extends LivingEntity>)mMob.getEntityClass());
 
-                if(data.get(next) != null)
-                {
-                    changeMobData(mMob, spawnedMount, data.get(next), target);
-                }
+				if (data.get(next) != null)
+				{
+					changeMobData(mMob, spawnedMount, data.get(next), target);
+				}
 
-                spawnedMob.setPassenger(spawnedMount);
+				spawnedMob.setPassenger(spawnedMount);
 
-                spawnedMob = spawnedMount;
-            }
-        }
+				spawnedMob = spawnedMount;
+			}
+		}
 	}
 
 	private static void checkSpawnable(IEssentials ess, CommandSender sender, EntityType mob) throws Exception
 	{
 		if (mob == null)
 		{
-			throw new Exception(_("invalidMob"));
+			throw new Exception(_("Invalid mob type."));
 		}
 
 		if (!Permissions.SPAWNMOB.isAuthorized((User)sender, mob.getName()))
 		{
-			throw new Exception(_("noPermToSpawnMob"));
+			throw new Exception(_("§4You don't have permission to spawn this mob."));
 		}
 	}
 
@@ -213,7 +213,7 @@ public class SpawnMob
 			}
 			catch (Exception e)
 			{
-				throw new Exception(_("slimeMalformedSize"), e);
+				throw new Exception(_("§4Malformed size."), e);
 			}
 		}
 		if (spawned instanceof Ageable && data.contains("baby"))
@@ -238,7 +238,7 @@ public class SpawnMob
 			}
 			catch (Exception e)
 			{
-				throw new Exception(_("sheepMalformedColor"), e);
+				throw new Exception(_("§4Malformed color."), e);
 			}
 		}
 		if (spawned instanceof Tameable && data.contains("tamed") && target != null)
@@ -246,7 +246,7 @@ public class SpawnMob
 			final Tameable tameable = ((Tameable)spawned);
 			tameable.setTamed(true);
 			tameable.setOwner(target.getPlayer());
-            data = data.replace("tamed", "");
+			data = data.replace("tamed", "");
 		}
 		if (type == EntityType.WOLF && data.contains("angry"))
 		{
@@ -281,27 +281,27 @@ public class SpawnMob
 				}
 			}
 		}
-        if (spawned instanceof Zombie)
-        {
-            if (data.contains("villager"))
-            {
-                ((Zombie)spawned).setVillager(true);
-            }
-            if (data.contains("baby"))
-            {
-                ((Zombie)spawned).setBaby(true);
-            }
-        }
-        if (type == EntityType.SKELETON)
-        {
-            if (data.contains("wither"))
-            {
-                ((Skeleton)spawned).setSkeletonType(Skeleton.SkeletonType.WITHER);
-            }
-        }
-        if (type == EntityType.EXPERIENCE_ORB)
-        {
-            ((ExperienceOrb)spawned).setExperience(Integer.parseInt(data));
-        }
+		if (spawned instanceof Zombie)
+		{
+			if (data.contains("villager"))
+			{
+				((Zombie)spawned).setVillager(true);
+			}
+			if (data.contains("baby"))
+			{
+				((Zombie)spawned).setBaby(true);
+			}
+		}
+		if (type == EntityType.SKELETON)
+		{
+			if (data.contains("wither"))
+			{
+				((Skeleton)spawned).setSkeletonType(Skeleton.SkeletonType.WITHER);
+			}
+		}
+		if (type == EntityType.EXPERIENCE_ORB)
+		{
+			((ExperienceOrb)spawned).setExperience(Integer.parseInt(data));
+		}
 	}
 }

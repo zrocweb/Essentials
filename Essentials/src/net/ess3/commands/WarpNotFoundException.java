@@ -9,7 +9,7 @@ public class WarpNotFoundException extends Exception
 
 	public WarpNotFoundException()
 	{
-		super(_("warpNotExist"));
+		super(_("§4That warp does not exist."));
 	}
 
 	public WarpNotFoundException(String message)
@@ -17,5 +17,3 @@ public class WarpNotFoundException extends Exception
 		super(message);
 	}
 }
-
-

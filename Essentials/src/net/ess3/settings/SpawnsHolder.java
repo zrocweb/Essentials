@@ -36,8 +36,8 @@ public class SpawnsHolder extends AsyncStorageObjectHolder<Spawns>
 	/**
 	 * Sets a spawn location
 	 *
-	 * @param loc   - Location you want to set as spawn
-	 * @param group - Group to save it undr in the config
+	 * @param loc - Location you want to set as spawn
+	 * @param group - Group to save it under in the config
 	 */
 	public void setSpawn(final Location loc, final String group)
 	{
@@ -262,7 +262,7 @@ public class SpawnsHolder extends AsyncStorageObjectHolder<Spawns>
 				}
 				catch (Exception ex)
 				{
-					Bukkit.getLogger().log(Level.WARNING, _("teleportNewPlayerError"), ex);
+					Bukkit.getLogger().log(Level.WARNING, _("§4Failed to teleport new player!"), ex);
 				}
 			}
 		}

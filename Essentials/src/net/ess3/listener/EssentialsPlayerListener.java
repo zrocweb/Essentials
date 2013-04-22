@@ -56,7 +56,8 @@ public class EssentialsPlayerListener implements Listener
 	public void onPlayerRespawn(final PlayerRespawnEvent event)
 	{
 		final Player player = event.getPlayer();
-		if (!player.isOnline()) {
+		if (!player.isOnline())
+		{
 			return;
 		}
 		final IUser user = userMap.getUser(player);
@@ -71,8 +72,8 @@ public class EssentialsPlayerListener implements Listener
 		if (user.getData().isMuted())
 		{
 			event.setCancelled(true);
-			user.sendMessage(_("playerMuted"));
-			LOGGER.info(_("mutedUserSpeaks", user.getName()));
+			user.sendMessage(_("§6You have been muted!"));
+			LOGGER.info(_("{0} tried to speak, but is muted.", user.getName()));
 		}
 		final Iterator<Player> it = event.getRecipients().iterator();
 		while (it.hasNext())
@@ -157,7 +158,7 @@ public class EssentialsPlayerListener implements Listener
 		{
 			user.getData().clearAllPowertools();
 			user.queueSave();
-			user.sendMessage(_("powerToolClearAll"));
+			user.sendMessage(_("§6All powertool commands have been cleared."));
 		}
 	}
 
@@ -173,83 +174,83 @@ public class EssentialsPlayerListener implements Listener
 						delayedJoin(event.getPlayer());
 					}
 				});
-/* TODO: Make sure my update is good
-		if (!event.getPlayer().isOnline())
-		{
-			return;
-		}
+		/* TODO: Make sure my update is good
+		 if (!event.getPlayer().isOnline())
+		 {
+		 return;
+		 }
 
-		ess.getBackup().startTask();
+		 ess.getBackup().startTask();
 
-		final String joinMessage = ess.getSettings().getData().getGeneral().getJoinMessage();
-		if (joinMessage != null)
-		{
-			final IText itOutput = new KeywordReplacer(new SimpleTextInput(joinMessage), ess.getUserMap().getUser(event.getPlayer()), ess);
-			final SimpleTextPager stPager = new SimpleTextPager(itOutput);
-			event.setJoinMessage(FormatUtil.replaceFormat(stPager.getString(0)));
-		}
-		else
-		{
-			event.setJoinMessage(joinMessage);
-		}
+		 final String joinMessage = ess.getSettings().getData().getGeneral().getJoinMessage();
+		 if (joinMessage != null)
+		 {
+		 final IText itOutput = new KeywordReplacer(new SimpleTextInput(joinMessage), ess.getUserMap().getUser(event.getPlayer()), ess);
+		 final SimpleTextPager stPager = new SimpleTextPager(itOutput);
+		 event.setJoinMessage(FormatUtil.replaceFormat(stPager.getString(0)));
+		 }
+		 else
+		 {
+		 event.setJoinMessage(joinMessage);
+		 }
 
-		final IUser user = ess.getUserMap().getUser(event.getPlayer());
+		 final IUser user = ess.getUserMap().getUser(event.getPlayer());
 
-		user.updateDisplayName();
-		user.getData().setIpAddress(user.getPlayer().getAddress().getAddress().getHostAddress());
-		user.updateActivity(false);
+		 user.updateDisplayName();
+		 user.getData().setIpAddress(user.getPlayer().getAddress().getAddress().getHostAddress());
+		 user.updateActivity(false);
 
-		for (String p : ess.getVanishedPlayers())
-		{
-			if (!Permissions.VANISH_SEE_OTHERS.isAuthorized(user))
-			{
-				user.getPlayer().hidePlayer(ess.getUserMap().getUser(p).getPlayer());
-			}
-		}
+		 for (String p : ess.getVanishedPlayers())
+		 {
+		 if (!Permissions.VANISH_SEE_OTHERS.isAuthorized(user))
+		 {
+		 user.getPlayer().hidePlayer(ess.getUserMap().getUser(p).getPlayer());
+		 }
+		 }
 
-		if (Permissions.SLEEPINGIGNORED.isAuthorized(user))
-		{
-			user.getPlayer().setSleepingIgnored(true);
-		}
-		user.queueSave();
+		 if (Permissions.SLEEPINGIGNORED.isAuthorized(user))
+		 {
+		 user.getPlayer().setSleepingIgnored(true);
+		 }
+		 user.queueSave();
 
 
-		final ISettings settings = ess.getSettings();
+		 final ISettings settings = ess.getSettings();
 
-		if (!settings.getData().getCommands().isDisabled("motd") && Permissions.MOTD.isAuthorized(user))
-		{
-			try
-			{
-				final IText input = new TextInput(user, "motd", true, ess);
-				final IText output = new KeywordReplacer(input, user, ess);
-				final TextPager pager = new TextPager(output, true);
-				pager.showPage("1", null, "motd", user);
-			}
-			catch (IOException ex)
-			{
-				if (settings.getData().getGeneral().isDebug())
-				{
-					LOGGER.log(Level.WARNING, ex.getMessage(), ex);
-				}
-				else
-				{
-					LOGGER.log(Level.WARNING, ex.getMessage());
-				}
-			}
-		}
+		 if (!settings.getData().getCommands().isDisabled("motd") && Permissions.MOTD.isAuthorized(user))
+		 {
+		 try
+		 {
+		 final IText input = new TextInput(user, "motd", true, ess);
+		 final IText output = new KeywordReplacer(input, user, ess);
+		 final TextPager pager = new TextPager(output, true);
+		 pager.showPage("1", null, "motd", user);
+		 }
+		 catch (IOException ex)
+		 {
+		 if (settings.getData().getGeneral().isDebug())
+		 {
+		 LOGGER.log(Level.WARNING, ex.getMessage(), ex);
+		 }
+		 else
+		 {
+		 LOGGER.log(Level.WARNING, ex.getMessage());
+		 }
+		 }
+		 }
 
-		if (!settings.getData().getCommands().isDisabled("mail") && Permissions.MAIL.isAuthorized(user))
-		{
-			final List<String> mail = user.getData().getMails();
-			if (mail == null || mail.isEmpty())
-			{
-				user.sendMessage(_("noNewMail"));
-			}
-			else
-			{
-				user.sendMessage(_("youHaveNewMail", mail.size()));
-			}
-		}*/
+		 if (!settings.getData().getCommands().isDisabled("mail") && Permissions.MAIL.isAuthorized(user))
+		 {
+		 final List<String> mail = user.getData().getMails();
+		 if (mail == null || mail.isEmpty())
+		 {
+		 user.sendMessage(_("§6You have no new mail."));
+		 }
+		 else
+		 {
+		 user.sendMessage(_("§6You have§c {0} §6messages! Type §c/mail read§6 to view your mail.", mail.size()));
+		 }
+		 }*/
 	}
 
 	public void delayedJoin(final Player player)
@@ -319,7 +320,7 @@ public class EssentialsPlayerListener implements Listener
 			final List<String> mail = user.getMails();
 			if (mail.isEmpty())
 			{
-				final String msg = _("noNewMail");
+				final String msg = _("§6You have no new mail.");
 				if (!msg.isEmpty())
 				{
 					user.sendMessage(msg);
@@ -327,30 +328,29 @@ public class EssentialsPlayerListener implements Listener
 			}
 			else
 			{
-				user.sendMessage(_("youHaveNewMail", mail.size()));
+				user.sendMessage(_("§6You have§c {0} §6messages! Type §c/mail read§6 to view your mail.", mail.size()));
 			}
 		}
-		if(Permissions.FLY_SAFELOGIN.isAuthorized(user))
+		if (Permissions.FLY_SAFELOGIN.isAuthorized(user))
 		{
 			final Location loc = user.getPlayer().getLocation();
 			final World world = loc.getWorld();
 			final int x = loc.getBlockX();
 			int y = loc.getBlockY();
 			final int z = loc.getBlockZ();
-			while(LocationUtil.isBlockUnsafe(world, x, y, z) && y > -1)
+			while (LocationUtil.isBlockUnsafe(world, x, y, z) && y > -1)
 			{
 				y--;
 			}
 
-			if(loc.getBlockY() - y > 1 || y < 0)
+			if (loc.getBlockY() - y > 1 || y < 0)
 			{
 				user.getPlayer().setAllowFlight(true);
 				user.getPlayer().setFlying(true);
-				user.sendMessage(_("flyMode", _("enabled"), user.getPlayer().getDisplayName()));
+				user.sendMessage(_("§6Set fly mode§c {0} §6for {1}§6.", _("enabled"), user.getPlayer().getDisplayName()));
 			}
 		}
 	}
-
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerLogin(final PlayerLoginEvent event)
@@ -380,7 +380,7 @@ public class EssentialsPlayerListener implements Listener
 			String banReason = user.getData().getBan().getReason();
 			if (banReason == null || banReason.isEmpty() || banReason.equalsIgnoreCase("ban"))
 			{
-				banReason = _("defaultBanReason");
+				banReason = _("The Ban Hammer has spoken!");
 			}
 			if (user.getData().getBan().getTimeout() > 0)
 			{
@@ -393,7 +393,7 @@ public class EssentialsPlayerListener implements Listener
 
 		if (server.getOnlinePlayers().length >= server.getMaxPlayers() && !Permissions.JOINFULLSERVER.isAuthorized(user))
 		{
-			event.disallow(Result.KICK_FULL, _("serverFull"));
+			event.disallow(Result.KICK_FULL, _("Server is full!"));
 			return;
 		}
 		event.allow();
@@ -449,7 +449,6 @@ public class EssentialsPlayerListener implements Listener
 					});
 		}
 	}
-
 	private final Pattern spaceSplit = Pattern.compile(" ");
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -489,7 +488,7 @@ public class EssentialsPlayerListener implements Listener
 		{
 			if (user.getData().isGodmode())
 			{
-				user.sendMessage(_("noGodWorldWarning"));
+				user.sendMessage(_("§4Warning! God mode in this world disabled."));
 			}
 		}
 		if (settings.getData().getCommands().getTeleport().isCancelRequestsOnWorldChange())
@@ -504,7 +503,7 @@ public class EssentialsPlayerListener implements Listener
 		{
 			user.getData().clearAllPowertools();
 			user.queueSave();
-			user.sendMessage(_("powerToolClearAll"));
+			user.sendMessage(_("§6All powertool commands have been cleared."));
 		}
 	}
 
@@ -562,7 +561,6 @@ public class EssentialsPlayerListener implements Listener
 			if (command.matches(".*\\{player\\}.*"))
 			{
 				//user.sendMessage("Click a player to use this command");
-				continue;
 			}
 			else if (command.startsWith("c:"))
 			{
@@ -613,7 +611,7 @@ public class EssentialsPlayerListener implements Listener
 			{
 				final IUser invOwner = userMap.getUser((Player)invHolder);
 				if (user.isInvSee() && (!Permissions.INVSEE_MODIFY.isAuthorized(user) || Permissions.INVSEE_PREVENT_MODIFY.isAuthorized(
-						invOwner) || !invOwner.isOnline()))
+										invOwner) || !invOwner.isOnline()))
 				{
 					event.setCancelled(true);
 				}
@@ -621,7 +619,7 @@ public class EssentialsPlayerListener implements Listener
 		}
 		if (event.getView().getTopInventory().getType() == InventoryType.WORKBENCH)
 		{
-			final IUser user = userMap.getUser((Player) event.getWhoClicked());
+			final IUser user = userMap.getUser((Player)event.getWhoClicked());
 			if (user.isRecipeSee())
 			{
 				event.setCancelled(true);
@@ -651,7 +649,7 @@ public class EssentialsPlayerListener implements Listener
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void onPlayerFishEvent(final PlayerFishEvent event)
 	{
-		final IUser user = userMap.getUser((Player)event.getPlayer());
+		final IUser user = userMap.getUser(event.getPlayer());
 		user.updateActivity(true);
 	}
 }

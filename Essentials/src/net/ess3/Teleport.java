@@ -21,7 +21,6 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 public class Teleport implements Runnable, ITeleport
 {
 	private static final double MOVE_CONSTANT = 0.3;
-
 	private IUser user;
 	private IUser teleportUser;
 	private int teleTimer = -1;
@@ -75,9 +74,9 @@ public class Teleport implements Runnable, ITeleport
 		}
 
 		if (!Permissions.TELEPORT_TIMER_MOVE.isAuthorized(user) && (Math.round(
-				teleportUser.getPlayer().getLocation().getX() * MOVE_CONSTANT) != initX || Math.round(
-				teleportUser.getPlayer().getLocation().getY() * MOVE_CONSTANT) != initY || Math.round(
-				teleportUser.getPlayer().getLocation().getZ() * MOVE_CONSTANT) != initZ || teleportUser.getPlayer().getHealth() < health))
+																	teleportUser.getPlayer().getLocation().getX() * MOVE_CONSTANT) != initX || Math.round(
+																	teleportUser.getPlayer().getLocation().getY() * MOVE_CONSTANT) != initY || Math.round(
+																	teleportUser.getPlayer().getLocation().getZ() * MOVE_CONSTANT) != initZ || teleportUser.getPlayer().getHealth() < health))
 		{    // user moved, cancel teleport
 			cancel(true);
 			return;
@@ -91,7 +90,7 @@ public class Teleport implements Runnable, ITeleport
 			try
 			{
 				cooldown(false);
-				teleportUser.sendMessage(_("teleportationCommencing"));
+				teleportUser.sendMessage(_("§6Teleportation commencing..."));
 				try
 				{
 
@@ -108,10 +107,10 @@ public class Teleport implements Runnable, ITeleport
 			}
 			catch (Exception ex)
 			{
-				user.sendMessage(_("cooldownWithMessage", ex.getMessage()));
+				user.sendMessage(_("§4Cooldown: {0}", ex.getMessage()));
 				if (user != teleportUser)
 				{
-					teleportUser.sendMessage(_("cooldownWithMessage", ex.getMessage()));
+					teleportUser.sendMessage(_("§4Cooldown: {0}", ex.getMessage()));
 				}
 			}
 		}
@@ -123,7 +122,6 @@ public class Teleport implements Runnable, ITeleport
 		this.ess = ess;
 	}
 
-
 	public void cooldown(boolean check) throws Exception
 	{
 		try
@@ -132,7 +130,7 @@ public class Teleport implements Runnable, ITeleport
 		}
 		catch (CooldownException ex)
 		{
-			throw new Exception(_("timeBeforeTeleport", ex.getMessage()));
+			throw new Exception(_("§6Time before next teleport:§c {0}", ex.getMessage()));
 
 		}
 	}
@@ -149,10 +147,10 @@ public class Teleport implements Runnable, ITeleport
 			ess.getPlugin().cancelTask(teleTimer);
 			if (notifyUser)
 			{
-				user.sendMessage(_("pendingTeleportCancelled"));
+				user.sendMessage(_("§4Pending teleportation request cancelled."));
 				if (teleportUser != user)
 				{
-					teleportUser.sendMessage(_("pendingTeleportCancelled"));
+					teleportUser.sendMessage(_("§4Pending teleportation request cancelled."));
 				}
 			}
 		}
@@ -233,7 +231,6 @@ public class Teleport implements Runnable, ITeleport
 		now(new Target(loc), cause);
 	}
 
-
 	@Override
 	//The now function is used when you want to skip tp delay when teleporting someone to a location or player.
 	public void now(Entity entity, boolean cooldown, TeleportCause cause) throws Exception
@@ -288,7 +285,7 @@ public class Teleport implements Runnable, ITeleport
 		final Calendar c = new GregorianCalendar();
 		c.add(Calendar.SECOND, (int)delay);
 		c.add(Calendar.MILLISECOND, (int)((delay * 1000.0) % 1000.0));
-		user.sendMessage(_("dontMoveMessage", DateUtil.formatDateDiff(c.getTimeInMillis())));
+		user.sendMessage(_("§6Teleportation will commence in§c {0}§6. Don''t move.", DateUtil.formatDateDiff(c.getTimeInMillis())));
 	}
 
 	@Override
@@ -304,7 +301,7 @@ public class Teleport implements Runnable, ITeleport
 	public void warp(String warp, Trade chargeFor, TeleportCause cause) throws Exception
 	{
 		final Location loc = ess.getWarps().getWarp(warp);
-		user.sendMessage(_("warpingTo", warp));
+		user.sendMessage(_("§6Warping to§c {0}§6.", warp));
 		teleport(new Target(loc), chargeFor, cause);
 	}
 

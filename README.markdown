@@ -23,3 +23,7 @@ To build all jars, open this folder and use `mvn clean install` to build it. You
 If you create pull requests, always make them for the master branch.
 
 The essentials bug tracker can be found at http://www.assembla.com/spaces/essentials/tickets
+
+If you want to build the new messages files, you require the gettext command line utils (xgettext, msgcat, msgmerge).
+
+For Linux / Mac install them using your package manager (e.g. MacPorts). For Windows install using the installer from http://sourceforge.net/projects/gnuwin32/files/gettext/0.14.4/gettext-0.14.4.exe/download or get the utils from http://sourceforge.net/projects/cppcms/files/boost_locale/gettext_for_windows/gettext-tools-static-0.18.1.1.zip/download and put them on your path. 

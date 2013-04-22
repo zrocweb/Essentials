@@ -60,12 +60,12 @@ public class Backup implements Runnable, IBackup
 		final net.ess3.settings.Backup backupSettings = settings.getData().getGeneral().getBackup();
 
 		String backupCommand = backupSettings.getCommand() == null || backupSettings.getCommand().isEmpty() ? ("NORUN") : backupSettings.getCommand();
-		
-		/*if (backupCommand.equals("NORUN")) { TODO: Un-comment if you do not want commands to be run if there is no backup command
-			return;
-		}*/
 
-		ess.getLogger().log(Level.INFO, _("backupStarted"));
+		/*if (backupCommand.equals("NORUN")) { TODO: Un-comment if you do not want commands to be run if there is no backup command
+		 return;
+		 }*/
+
+		ess.getLogger().log(Level.INFO, _("§6Backup started."));
 
 		if (!backupSettings.getCommandsBeforeBackup().isEmpty())
 		{
@@ -153,7 +153,7 @@ public class Backup implements Runnable, IBackup
 			}
 
 			active.set(false);
-			ess.getLogger().log(Level.INFO, _("backupFinished"));
+			ess.getLogger().log(Level.INFO, _("§6Backup finished."));
 		}
 	}
 }

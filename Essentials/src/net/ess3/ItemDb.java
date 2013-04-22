@@ -26,7 +26,6 @@ public class ItemDb implements IItemDb
 		this.ess = ess;
 		file = new ManagedFile("items.csv", ess);
 	}
-
 	private final Map<String, Long> items = new HashMap<String, Long>();
 	private final ManagedFile file;
 	private static final Pattern SPLIT = Pattern.compile("[^a-zA-Z0-9]");
@@ -95,7 +94,6 @@ public class ItemDb implements IItemDb
 		retval.setAmount(quantity);
 		return retval;
 	}
-
 	private final Pattern idMatch = Pattern.compile("^\\d+[:+',;.]\\d+$");
 	private final Pattern metaSplit = Pattern.compile("[:+',;.]");
 	private final Pattern conjoined = Pattern.compile("^[^:+',;.]+[:+',;.]\\d+$");
@@ -145,16 +143,15 @@ public class ItemDb implements IItemDb
 			}
 			else
 			{
-				throw new Exception(_("unknownItemName", id));
+				throw new Exception(_("§4Unknown item name: {0}.", id));
 			}
 		}
 
 		final Material mat = Material.getMaterial(itemid);
 		if (mat == null)
 		{
-			throw new Exception(_("unknownItemId", itemid));
+			throw new Exception(_("§4Unknown item id:§r {0}§4.", itemid));
 		}
-		final ItemStack retval = new ItemStack(mat, mat.getMaxStackSize(), metaData);
-		return retval;
+		return new ItemStack(mat, mat.getMaxStackSize(), metaData);
 	}
 }

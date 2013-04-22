@@ -12,8 +12,10 @@ import org.bukkit.plugin.Plugin;
 /**
  * iConomy 5 Implementation of Method
  *
- * @author Nijikokun <nijikokun@shortmail.com> (@nijikokun) @copyright (c) 2011 @license AOL license
- *         <http://aol.nexua.org>
+ * @author Nijikokun <nijikokun@shortmail.com> (
+ * @nijikokun)
+ * @copyright (c) 2011
+ * @license AOL license <http://aol.nexua.org>
  */
 public class iCo5 implements Method
 {
@@ -82,12 +84,7 @@ public class iCo5 implements Method
 	@Override
 	public boolean createAccount(String name)
 	{
-		if (hasAccount(name))
-		{
-			return false;
-		}
-
-		return com.iConomy.iConomy.Accounts.create(name);
+		return !hasAccount(name) && com.iConomy.iConomy.Accounts.create(name);
 	}
 
 	@Override

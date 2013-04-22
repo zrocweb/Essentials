@@ -36,9 +36,10 @@ public class EssentialsPluginListener implements Listener, IReload
 		if (!Methods.hasMethod() && Methods.setMethod(ess.getServer().getPluginManager()))
 		{
 			ess.getLogger().log(
-					Level.INFO, "Payment method found ({0} version: {1})", new Object[]{
-					Methods.getMethod().getName(), Methods.getMethod().getVersion()
-			});
+					Level.INFO, "Payment method found ({0} version: {1})", new Object[]
+					{
+						Methods.getMethod().getName(), Methods.getMethod().getVersion()
+					});
 		}
 	}
 
@@ -48,7 +49,7 @@ public class EssentialsPluginListener implements Listener, IReload
 		checkGroups();
 		ess.getPlugin().onPluginDisable(event.getPlugin());
 		ess.getCommandHandler().removePlugin(event.getPlugin());
-		// Check to see if the plugin thats being disabled is the one we are using
+		// Check to see if the plugin that's being disabled is the one we are using
 		if (Methods.hasMethod() && Methods.checkDisabled(event.getPlugin()))
 		{
 			Methods.reset();

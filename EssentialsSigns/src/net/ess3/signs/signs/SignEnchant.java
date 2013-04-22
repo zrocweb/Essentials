@@ -26,12 +26,12 @@ public class SignEnchant extends EssentialsSign
 		final String[] enchantLevel = sign.getLine(2).split(":");
 		if (enchantLevel.length != 2)
 		{
-			throw new SignException(_("invalidSignLine", 3));
+			throw new SignException(_("§4Line§c {0} §4on sign is invalid.", 3));
 		}
 		final Enchantment enchantment = Enchantments.getByName(enchantLevel[0]);
 		if (enchantment == null)
 		{
-			throw new SignException(_("enchantmentNotFound"));
+			throw new SignException(_("§4Enchantment not found!"));
 		}
 		int level;
 		try
@@ -71,12 +71,12 @@ public class SignEnchant extends EssentialsSign
 		final String[] enchantLevel = sign.getLine(2).split(":");
 		if (enchantLevel.length != 2)
 		{
-			throw new SignException(_("invalidSignLine", 3));
+			throw new SignException(_("§4Line§c {0} §4on sign is invalid.", 3));
 		}
 		final Enchantment enchantment = Enchantments.getByName(enchantLevel[0]);
 		if (enchantment == null)
 		{
-			throw new SignException(_("enchantmentNotFound"));
+			throw new SignException(_("§4Enchantment not found!"));
 		}
 		int level;
 		try
@@ -90,13 +90,13 @@ public class SignEnchant extends EssentialsSign
 
 		final ItemStack playerHand = player.getPlayer().getItemInHand();
 		if (playerHand == null || playerHand.getAmount() != 1 || (playerHand.containsEnchantment(enchantment) && playerHand.getEnchantmentLevel(
-				enchantment) == level))
+																  enchantment) == level))
 		{
-			throw new SignException(_("missingItems", 1, sign.getLine(1)));
+			throw new SignException(_("§4You do not have {0}x {1}.", 1, sign.getLine(1)));
 		}
 		if (search != null && playerHand.getType() != search.getType())
 		{
-			throw new SignException(_("missingItems", 1, search.getType().toString().toLowerCase(Locale.ENGLISH).replace('_', ' ')));
+			throw new SignException(_("§4You do not have {0}x {1}.", 1, search.getType().toString().toLowerCase(Locale.ENGLISH).replace('_', ' ')));
 		}
 
 		final ItemStack toEnchant = playerHand;
